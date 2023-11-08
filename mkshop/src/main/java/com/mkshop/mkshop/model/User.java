@@ -1,17 +1,19 @@
 package com.mkshop.mkshop.model;
 
-import jakarta.annotation.Nullable;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.mkshop.mkshop.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.antlr.v4.runtime.misc.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -21,7 +23,7 @@ import java.util.List;
 @Setter
 @Table(name = "users")
 @Entity
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -41,6 +43,10 @@ public class User {
     @Column(nullable = false)
     private String username;
 
+    @Column(nullable = false)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)// Nao mostra a senha encriptada
+    private String password;
+
     @Column
     private String phone_number;
 
@@ -52,4 +58,48 @@ public class User {
 
     @OneToMany(mappedBy = "user_order")
     private List<Order> order;
+
+    private UserRole role;
+
+    public User(String full_name, String username,
+                String passwordEncrypted, String phone_number, String cpf, UserRole role) {
+        this.setFull_name(full_name);
+        this.setUsername(username);
+        this.setPassword(passwordEncrypted);
+        this.setPhone_number(phone_number);
+        this.setCpf(cpf);
+        this.setRole(role);
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        if(this.role == UserRole.ADMIN) {
+            return List.of(
+                    new SimpleGrantedAuthority("ROLE_ADMIN"),
+                    new SimpleGrantedAuthority("ROLE_USER")
+            );
+        } else {
+            return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        }
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }
