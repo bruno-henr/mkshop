@@ -2,9 +2,8 @@ package com.mkshop.mkshop.controller;
 
 import com.mkshop.mkshop.DTO.AuthenticationDTO;
 import com.mkshop.mkshop.ResponseAPI;
-import com.mkshop.mkshop.infra2.TokenService;
+import com.mkshop.mkshop.infra.TokenService;
 import com.mkshop.mkshop.model.User;
-import com.mkshop.mkshop.repository.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

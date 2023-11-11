@@ -3,8 +3,10 @@ package com.mkshop.mkshop.controller;
 import com.mkshop.mkshop.DTO.ProductDTO;
 import com.mkshop.mkshop.ResponseAPI;
 import com.mkshop.mkshop.model.Category;
+import com.mkshop.mkshop.model.ImageProduct;
 import com.mkshop.mkshop.model.Product;
 import com.mkshop.mkshop.repository.CategoryRepository;
+import com.mkshop.mkshop.repository.ImageProductRepository;
 import com.mkshop.mkshop.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,14 +23,30 @@ public class ProductController {
     private ProductRepository productRepository;
     @Autowired
     private CategoryRepository categoryRepository;
+    @Autowired
+    private ImageProductRepository imageProductRepository;
 
     @GetMapping("/product")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<ResponseAPI<List<Product>>> getAllProduct() {
+    public ResponseEntity<ResponseAPI<List<Product>>> getAllProduct(
+            @RequestParam(value = "name") String name
+    ) {
         try {
+            if(name.isEmpty()) {
+                return new ResponseEntity<>(
+                        new ResponseAPI<>(
+                                this.productRepository.findAll(),
+                                false,
+                                HttpStatus.OK.value(),
+                                null
+                        ), HttpStatus.OK
+                );
+            }
+            List<Product> productList = this.productRepository.findByNameContainingIgnoreCase(name);
+            System.out.println("lista de carro => "+productList);
             return new ResponseEntity<>(
                     new ResponseAPI<>(
-                            this.productRepository.findAll(),
+                            productList,
                             false,
                             HttpStatus.OK.value(),
                             null
@@ -77,11 +95,16 @@ public class ProductController {
             Product product1 = product.toProduct();
 
             Category c = this.categoryRepository.findById(product.getCategoryId()).get();
+
             product1.setCategory(c);
 
             System.out.println(product1);
-            Product productSaved = this.productRepository.save(product1);
+            Product p = this.productRepository.save(product1);
 
+            for (String img : product.getImagesProduct()) {
+                ImageProduct imgProduct = new ImageProduct(img, p);
+                this.imageProductRepository.save(imgProduct);
+            }
 
             return new ResponseEntity<>(
                     new ResponseAPI<>(product, false, HttpStatus.CREATED.value(), null),

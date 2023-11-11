@@ -2,9 +2,13 @@ package com.mkshop.mkshop.DTO;
 
 import com.mkshop.mkshop.model.Category;
 import com.mkshop.mkshop.model.Product;
+import com.mkshop.mkshop.repository.CategoryRepository;
+import com.mkshop.mkshop.repository.ImageProductRepository;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,6 +22,7 @@ public class ProductDTO {
     private Integer stockQuantity;
     private String imgUrl;
     private String categoryId;
+    private List<String> imagesProduct = new ArrayList<>();
 
     public Product toProduct() {
         Product product = new Product();

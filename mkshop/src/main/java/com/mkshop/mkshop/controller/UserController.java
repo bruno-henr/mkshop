@@ -18,11 +18,8 @@ import java.util.Optional;
 
 @RestController
 public class UserController {
-
     @Autowired
     private UserRepository userRepository;
-//    @Autowired
-//    private BCryptPasswordEncoder passwordEncoder;
 
     @GetMapping("/user")
     @ResponseStatus(HttpStatus.OK)
@@ -89,12 +86,6 @@ public class UserController {
                     HttpStatus.BAD_REQUEST
             );
         }
-    }
-
-    @PostMapping("/add/teste")
-    @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity addTeste() {
-        return ResponseEntity.ok().build();
     }
 
 //    @PutMapping("/user/{id}")

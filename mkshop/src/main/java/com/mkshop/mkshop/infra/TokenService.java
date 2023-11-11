@@ -1,4 +1,4 @@
-package com.mkshop.mkshop.infra2;
+package com.mkshop.mkshop.infra;
 
 
 import com.auth0.jwt.JWT;
@@ -6,15 +6,12 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.mkshop.mkshop.model.User;
-import org.apache.logging.log4j.CloseableThreadContext;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.time.temporal.TemporalAmount;
 
 @Service
 public class TokenService {

@@ -1,6 +1,6 @@
 package com.mkshop.mkshop.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 import com.mkshop.mkshop.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -23,6 +23,10 @@ import java.util.List;
 @Setter
 @Table(name = "users")
 @Entity
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id"
+)
 public class User implements UserDetails {
 
     @Id
@@ -56,7 +60,8 @@ public class User implements UserDetails {
     @OneToOne(cascade = CascadeType.PERSIST, orphanRemoval = true)
     private Address address;
 
-    @OneToMany(mappedBy = "user_order")
+    @OneToMany(mappedBy = "user")
+    @JsonIdentityReference(alwaysAsId = true)
     private List<Order> order;
 
     private UserRole role;

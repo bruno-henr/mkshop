@@ -8,23 +8,18 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.hibernate.type.SerializableType;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @Table
-@Entity(name = "category")
-public class Category implements Serializable {
-
+@Entity(name = "img_product")
+public class ImageProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
@@ -37,14 +32,16 @@ public class Category implements Serializable {
     @UpdateTimestamp
     private Date updated_at;
 
-    @Column(
-            unique = true,
-            nullable = false
-    )
-    private String name;
+    @Column(nullable = false)
+    private String img_url;
 
-    @OneToMany(mappedBy = "category")
+    @ManyToOne
+    @JoinColumn(name = "productId")
     @JsonIgnore
-    private List<Product> product;
+    private Product product;
 
+    public ImageProduct(String img_url, Product product) {
+        this.setImg_url(img_url);
+        this.setProduct(product);
+    }
 }

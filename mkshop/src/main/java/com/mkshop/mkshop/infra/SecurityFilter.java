@@ -1,4 +1,4 @@
-package com.mkshop.mkshop.infra2;
+package com.mkshop.mkshop.infra;
 
 import com.mkshop.mkshop.repository.UserRepository;
 import jakarta.servlet.FilterChain;

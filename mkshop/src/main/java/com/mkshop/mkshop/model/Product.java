@@ -9,11 +9,8 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import static jakarta.persistence.GenerationType.*;
 
@@ -66,10 +63,13 @@ public class Product  {
     private String img_url;
 
     @ManyToOne
-    @JoinColumn(name = "categoryId", nullable = false)
-    @JsonIgnore
+    @JoinColumn(name = "categoryId")
     private Category category;
 
-    @ManyToMany(mappedBy = "products")
-    private List<Order> orders;
+    @OneToMany(mappedBy = "product")
+    private List<ImageProduct> imageProducts;
+
+    @OneToMany(mappedBy = "product")
+    @JsonIgnore
+    List<ProductOrder> productOrders;
 }
