@@ -1,14 +1,41 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
-  <title>MkshopFrontend</title>
+  <title>MK.SHOP</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <link rel="stylesheet" href="https://unpkg.com/primeflex@latest/primeflex.css">  
+  <link rel="stylesheet" href="https://unpkg.com/primeflex@latest/primeflex.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
 </head>
+
 <body>
   <app-root></app-root>
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const colorThief = new ColorThief();
+      const containerDiv = document.getElementsByClassName('item-main-product');
+
+      const itemDivsArray = Array.from(containerDiv);
+      itemDivsArray.forEach((el, index) => {
+        const img = el.querySelector('img');
+        console.log('img =>>', img);
+        if (img.complete) {
+          const imgT = colorThief.getPalette(img);
+          console.log('imgT => ', imgT);
+        } 
+
+      })
+
+      console.log('itemDivsArray =>', itemDivsArray);
+    })
+
+  </script>
+
 </body>
+
 </html>

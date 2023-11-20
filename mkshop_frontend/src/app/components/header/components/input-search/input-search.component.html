@@ -1,18 +1,25 @@
 <div>
 
-  <p-autoComplete [(ngModel)]="selectedItem" [suggestions]="suggestions" (completeMethod)="search($event)" [inputStyle]="{
-    borderTopRightRadius: '0px',
-    borderBottomRightRadius: '0px',
-    width: '320px'
-    }" placeholder="Pesquise por produtos ou categorias">
+  <p-autoComplete 
+    [(ngModel)]="selectedItem" 
+    [suggestions]="suggestions" 
+    (completeMethod)="search($event)" 
+    [inputStyle]="{
+      borderTopRightRadius: '0px',
+      borderBottomRightRadius: '0px',
+      width: '320px'
+    }" 
+    placeholder="Pesquise por produtos ou categorias"
+  ></p-autoComplete>
 
-  </p-autoComplete>
 
-
-  <p-button label="" [style]="{
-        borderTopLeftRadius: '0px',
-        borderBottomLeftRadius: '0px'
-    }">
+  <p-button 
+    label="" 
+    [style]="{
+      borderTopLeftRadius: '0px',
+      borderBottomLeftRadius: '0px'
+    }"
+  >
     <i class="pi pi-search" style="font-size: 1.2rem"></i>
   </p-button>
 </div>

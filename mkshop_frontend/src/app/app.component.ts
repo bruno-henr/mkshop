@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
+import { UserService } from './services/user/user-service.service';
 
 @Component({
   selector: 'app-root',
@@ -9,8 +10,18 @@ import { PrimeNGConfig } from 'primeng/api';
 export class AppComponent {
   date: Date | undefined;
 
-  title = 'mkshop_frontend';
-  constructor(private primengConfig: PrimeNGConfig) {}
+  title = 'MK.SHOP';
+
+  userIsLogged: boolean = true;
+
+  constructor(
+    private primengConfig: PrimeNGConfig,
+    private userService: UserService  
+  ) {
+    this.userService.getUserIfLogged().subscribe(data => {
+      this.userIsLogged = data
+    })
+  }
 
   ngOnInit() {
     this.primengConfig.ripple = true;

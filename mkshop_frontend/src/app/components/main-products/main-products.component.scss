@@ -1,0 +1,29 @@
+.header-main-products {
+    height: 4rem;
+    & h3 {
+        font-size: 1.5rem;
+    }
+}
+
+.item-main-product {
+    &>img {
+        width: 200px;
+        height: 200px;
+        overflow: hidden;
+    }
+}
+h4 {
+    font-size: 1rem;
+}
+.div-left {
+    padding-left: 3.3rem;
+}
+
+.div-right {
+    padding-right: 3.3rem;
+
+    &>a {
+        color: gray;
+        font-size: 1rem;
+    }
+}
