@@ -1,0 +1,58 @@
+<div class="w-full h-22rem ">
+  <div class=" flex flex-column xl:flex-row xl:align-items-start p-2 gap-4 ">
+    <div class="col-4  ">
+      <img class="sm:w-16rem xl:w-full p-5 shadow-2 block xl:block border-round"
+        [src]="'assets/main-products/doritos.png'" />
+    </div>
+    <div class="col-8 flex flex-column">
+      <h3>Heineken Long Neck 330ml Pack com 6</h3>
+      <span>Marca: Heineken</span>
+      <h4>R$ 49,94</h4>
+      <app-quantity [value]="2"></app-quantity>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="products.length" class="container-main-products">
+  <div class="flex align-items-center w-full header-main-products">
+    <div class="col-6 text-left div-left">
+      <h3 style="font-size: 1.25rem;">
+        Produtos similares
+      </h3>
+    </div>
+
+  </div>
+
+  <p-carousel [value]="products" [numVisible]="6" [numScroll]="3" [circular]="false"
+    [responsiveOptions]="responsiveOptions" [showIndicators]="true">
+
+    <ng-template let-product pTemplate="item">
+      <div style="background-color: #F0EEEE !important;"
+        class="cursor-pointer border-1 surface-border border-round m-2 text-center py-5 px-3 h-16rem flex align-items-center justify-content-center">
+        <a [routerLink]="['/produto']">
+          <div class="item-main-product">
+            <img src="assets/main-products/{{ product.image }}.png" [alt]="product.name" />
+          </div>
+        </a>
+
+      </div>
+      <div>
+        <h4 style="font-size: 1rem;" class="mb-1 text-black-alpha-90">{{ product.name }}</h4>
+      </div>
+    </ng-template>
+  </p-carousel>
+</div>
+
+<div class="flex flex-column">
+  <h2>Descrição do produto</h2>
+  <p class="text-justify">A Cerveja Heineken é a escolha perfeita para te acompanhar em todos os momentos!Uma Lager Premium com 5% de álcool
+    por volume produzido, bem conhecida por sua característica peculiar, sendo considerada uma das melhores cervejas do
+    mundo.Com uma coloração amarelo dourado, a Cerveja Heineken Pilsen conta com ingredientes 100% naturais, fabricada
+    em tanques horizontais para mais sabor e consistência.</p>
+
+  <p class="text-justify">Além disso, durante o seu processo de fermentação a exclusiva Levedura A é responsável pelo sabor característico e
+    bem equilibrado, com notas frutadas sutis.A Cerveja Heineken Pilsen é uma lager mais leve e combina bem com
+    hambúrguer, comida mexicana, queijos e castanhas. Perfeita para qualquer ocasião. É considerada uma das melhores
+    cervejas do mundo, de alta qualidade para você aprecia-la bem gelada em qualquer ocasião.Adquira agora mesmo e
+    desfrute de ótimos momentos!</p>
+</div>

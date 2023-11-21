@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./user-info-header.component.scss']
 })
 export class UserInfoHeaderComponent {
-
+  logado = true;
 }

@@ -1,21 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { InicioComponent } from './pages/inicio/inicio.component';
-import { ConteudoComponent } from './pages/conteudo/conteudo.component';
-import { TesteComponent } from './pages/teste/teste.component';
 import { LoginComponent } from './pages/login/login.component';
 import { authenticationGuard } from './shared/guard/authentication.guard';
 import { HomeComponent } from './pages/home/home.component';
+import { ProductComponent } from './pages/product/product.component';
+import { HomePageComponent } from './pages/home-page/home-page.component';
 
 const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
-    // children: [
-      
-    //   { path: '1', component: TesteComponent },
-    //   { path: 'conteudo', component: ConteudoComponent }
-    // ],
+    children: [
+      { path: '', component: HomePageComponent },
+      { path: 'produto', component: ProductComponent },
+    ],
     // canActivate: [authenticationGuard]
   },
   {

@@ -1,7 +1,12 @@
 <div class="flex flex-row flex-wrap align-items-center gap-2 container">
   <i class="pi pi-user" style="font-size: 1.5rem"></i>
-  <div id="txt-align" class="flex flex-column">
+
+  <div id="txt-align" class="flex flex-column" *ngIf="!logado">
     <label>Bem vindo</label>
     <span>Entre ou cadastre-se</span>
+  </div>
+  <div id="txt-align" class="flex flex-column" *ngIf="logado">
+    <label><span>Seja bem vindo, </span><br /> Bruno Henrique</label>
+    <span><a href="">Ver perfil</a></span>
   </div>
 </div>
