@@ -20,7 +20,8 @@ Frontend
     AngularJS: Framework JavaScript utilizado para construir a interface do cliente.
     PrimeNG: Para o desenvolvimento de um design responsivo e atraente.
 Backend
-    SpringBoot: Framework java para criação de APIs
+    
+    Spring Boot: Framework java para criação de API.
 
 ## Instalação e Uso
 
