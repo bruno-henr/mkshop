@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -15,6 +15,9 @@ import { LogoComponent } from './components/logo/logo.component';
 import { ProductComponent } from './pages/product/product.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { QuantityComponent } from './pages/product/components/quantity/quantity.component';
+import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
+import { ItemComponent } from './pages/shopping-cart/components/item/item.component';
+
 // directives
 import { IfUserIsLoggedDirective } from './directives/if-user-is-logged.directive';
 // prime ng
@@ -31,6 +34,18 @@ import { AvatarModule } from 'primeng/avatar';
 import { TableModule } from 'primeng/table';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { InputTextModule } from 'primeng/inputtext';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { ToastModule } from 'primeng/toast';
+import { DividerModule } from 'primeng/divider';
+
+// **************************************************
+import ptBr from '@angular/common/locales/pt';
+import { registerLocaleData } from '@angular/common';
+
+registerLocaleData(ptBr);
+// **************************************************
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,6 +61,8 @@ import { InputTextModule } from 'primeng/inputtext';
     ProductComponent,
     HomePageComponent,
     QuantityComponent,
+    ShoppingCartComponent,
+    ItemComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,9 +80,13 @@ import { InputTextModule } from 'primeng/inputtext';
     FormsModule,
     AvatarModule,
     AvatarGroupModule,
-    InputTextModule
+    InputTextModule,
+    BreadcrumbModule,
+    ConfirmPopupModule,
+    ToastModule,
+    DividerModule
   ],
-  providers: [],
+  providers: [{ provide: LOCALE_ID, useValue: 'pt' }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

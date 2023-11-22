@@ -13,7 +13,6 @@ export class HeaderComponent implements OnInit {
     throw new Error('Method not implemented.');
   }
   items: MenuItem[] | undefined;
-  
 
   ngOnInit() {
     this.items = [

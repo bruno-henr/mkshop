@@ -1,6 +1,7 @@
-<div>
+<div class="w-full">
   <button pButton pRipple icon="pi pi-minus" (click)="minus()">
   </button>
-  <input type="text" class="w-1 text-center" [readOnly]="true" pInputText [(ngModel)]="value" />
+  <input type="text" class="w-4rem text-center" readonly pInputText 
+    [(ngModel)]="valueQuantity" />
   <button pButton pRipple icon="pi pi-plus" (click)="add()"></button>
 </div>

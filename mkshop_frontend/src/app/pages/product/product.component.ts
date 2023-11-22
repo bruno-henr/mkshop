@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-product',
@@ -13,6 +14,16 @@ export class ProductComponent implements OnInit {
     { name: 'Cerveja Brahma Duplo Malte', image: 'cerveja' },
     { name: 'Doritos 300g Elma Chips', image: 'doritos' },
   ];
+  valueQuantity: number = 0;
+
+  handleValueQuantity(value: any) {
+    this.valueQuantity = value;
+  }
+
+  items: MenuItem[] | undefined;
+
+  home: MenuItem | undefined;
+
 
   ngOnInit() {
     this.responsiveOptions = [
@@ -32,5 +43,11 @@ export class ProductComponent implements OnInit {
         numScroll: 1,
       },
     ];
+
+    this.items = [
+      { label: 'Página de produto' }
+    ];
+
+    this.home = { icon: 'pi pi-home', routerLink: '/' };
   }
 }

@@ -1,0 +1,22 @@
+<div class="flex flex-row gap-2">
+  <img class="xl:w-10rem sm:w-6rem md:w-8rem shadow-2 border-round"
+    [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" />
+  <div class="w-full flex flex-column gap-2 ">
+    <label>{{ product.name }}</label>
+    <div class="grid-container">
+      <div class="">
+        <app-quantity [valueQuantity]="product.qtd"></app-quantity>
+      </div>
+      <div class="flex align-items-center justify-content-center">
+        <label class="font-bold price ">
+          {{ product.price * product.qtd | currency : 'BRL'}}
+        </label>
+      </div>
+      <div class="">
+        <p-toast></p-toast>
+        <p-confirmPopup></p-confirmPopup>
+        <p-button (click)="confirm($event)"  icon="pi pi-trash" severity="danger"></p-button>
+      </div>
+    </div>
+  </div>
+</div>

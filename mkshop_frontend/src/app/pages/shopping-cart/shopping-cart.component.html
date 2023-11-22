@@ -1,0 +1,53 @@
+<div class=" flex justify-content-left mt-2">
+  <p-breadcrumb class="max-w-full breadcrumb-container text-sm" [model]="items" [home]="home"></p-breadcrumb>
+</div>
+
+<div class="w-full flex h-full">
+  <div class="col-7 flex-column ">
+    <h3>Carrinho ({{products.length}})</h3>
+    <div *ngFor="let product of products" class="flex flex-column gap-2">
+      <app-item [product]="product"></app-item>
+      <p-divider></p-divider>
+    </div>
+
+  </div>
+  <div class="col p-0">
+    <p-divider class="p-0" layout="vertical"></p-divider>
+  </div>
+  <div class="col-5 flex justify-content-center">
+    <div class="w-11 flex flex-column gap-2">
+      <h3>Resultado do pedido</h3>
+      <div class="flex flex-column justify-content-center flex-wrap">
+        <div class="flex justify-content-between ">
+          <span>Subtotal</span>
+          <span>{{ total | currency : 'BRL'}}</span>
+        </div>
+
+        <div class="flex justify-content-between">
+          <span>Desconto</span>
+          <span>{{ desconto || 0 | currency : 'BRL'}}</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="flex justify-content-between align-items-center">
+          <h3 class="font-bold text-2xl md:text-xl">Total</h3>
+          <span class="font-bold text-2xl md:text-xl">{{ (total- (+desconto )) | currency : 'BRL'}}</span>
+        </div>
+      </div>
+
+      <div class="card flex justify-content-center w-12 bg-primary">
+        <p-dropdown autoWidth="false" [options]="optionsDelivery"
+          [(ngModel)]="selectDelivery" optionLabel="name" [showClear]="true"
+          placeholder="Selecione como deseja receber"></p-dropdown>
+      </div>
+
+
+      <div class="card flex justify-content-center w-12 ">
+        <button [classList]="['w-12']"  pButton pRipple label="Finalizar compra" class="p-button-success"></button>
+      </div>
+    </div>
+
+
+  </div>
+</div>

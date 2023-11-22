@@ -1,19 +1,28 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-quantity',
   templateUrl: './quantity.component.html',
   styleUrls: ['./quantity.component.scss'],
 })
-export class QuantityComponent {
-  @Input() value: number = 1;
+export class QuantityComponent implements OnInit {
+  @Input() valueQuantity!: number;
+  @Output() valueEmitter = new EventEmitter();
+
+  handleEmmiter(value: any) {
+    this.valueEmitter.emit(value);
+  }
 
   minus() {
-    if (this.value != 0) {
-      this.value--;
+    if (this.valueQuantity != 0) {
+      this.valueQuantity--;
+      this.handleEmmiter(this.valueQuantity);
     }
   }
   add() {
-    this.value++;
+    this.valueQuantity++;
+    this.handleEmmiter(this.valueQuantity);
   }
+
+  ngOnInit() {}
 }

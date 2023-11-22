@@ -5,6 +5,7 @@ import { authenticationGuard } from './shared/guard/authentication.guard';
 import { HomeComponent } from './pages/home/home.component';
 import { ProductComponent } from './pages/product/product.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
+import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
 
 const routes: Routes = [
   {
@@ -13,6 +14,7 @@ const routes: Routes = [
     children: [
       { path: '', component: HomePageComponent },
       { path: 'produto', component: ProductComponent },
+      { path: 'carrinho', component: ShoppingCartComponent },
     ],
     // canActivate: [authenticationGuard]
   },

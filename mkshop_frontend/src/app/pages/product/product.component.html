@@ -1,3 +1,8 @@
+
+<div class=" flex justify-content-left ml-3 mt-2">
+  <p-breadcrumb class="max-w-full breadcrumb-container text-sm" [model]="items" [home]="home"></p-breadcrumb>
+</div>
+
 <div class="w-full h-22rem ">
   <div class=" flex flex-column xl:flex-row xl:align-items-start p-2 gap-4 ">
     <div class="col-4  ">
@@ -8,7 +13,10 @@
       <h3>Heineken Long Neck 330ml Pack com 6</h3>
       <span>Marca: Heineken</span>
       <h4>R$ 49,94</h4>
-      <app-quantity [value]="2"></app-quantity>
+      <app-quantity [valueQuantity]="1" (valueEmitter)="handleValueQuantity($event)"></app-quantity>
+
+      <button icon="pi pi-cart-plus" pButton pRipple label="Adicionar ao carrinho" 
+      class="w-18rem mt-4 text-lg"></button>
     </div>
   </div>
 </div>
@@ -45,12 +53,14 @@
 
 <div class="flex flex-column">
   <h2>Descrição do produto</h2>
-  <p class="text-justify">A Cerveja Heineken é a escolha perfeita para te acompanhar em todos os momentos!Uma Lager Premium com 5% de álcool
+  <p class="text-justify">A Cerveja Heineken é a escolha perfeita para te acompanhar em todos os momentos!Uma Lager
+    Premium com 5% de álcool
     por volume produzido, bem conhecida por sua característica peculiar, sendo considerada uma das melhores cervejas do
     mundo.Com uma coloração amarelo dourado, a Cerveja Heineken Pilsen conta com ingredientes 100% naturais, fabricada
     em tanques horizontais para mais sabor e consistência.</p>
 
-  <p class="text-justify">Além disso, durante o seu processo de fermentação a exclusiva Levedura A é responsável pelo sabor característico e
+  <p class="text-justify">Além disso, durante o seu processo de fermentação a exclusiva Levedura A é responsável pelo
+    sabor característico e
     bem equilibrado, com notas frutadas sutis.A Cerveja Heineken Pilsen é uma lager mais leve e combina bem com
     hambúrguer, comida mexicana, queijos e castanhas. Perfeita para qualquer ocasião. É considerada uma das melhores
     cervejas do mundo, de alta qualidade para você aprecia-la bem gelada em qualquer ocasião.Adquira agora mesmo e
