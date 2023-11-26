@@ -94,8 +94,9 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
     // this.products.next(this.productService.getProducts()?.getValue());
     this.methodDelivery.valueChanges.subscribe((data) => {
     });
-
-    this.products.next(this.productService.getProductsCarrinho());
+    const produtosCarrinho = this.productService.getProductsCarrinho();
+    
+    this.products.next(produtosCarrinho);
 
     this.total = this.productService.total;
 

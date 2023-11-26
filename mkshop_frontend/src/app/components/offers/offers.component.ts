@@ -33,6 +33,7 @@ export class OffersComponent implements OnInit {
       summary: 'Success',
       detail: `${_product.name} adicionado ao carrinho`,
     });
+    
     this.productService.addProduct(_product);
   }
 
