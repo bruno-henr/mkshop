@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CategoryService } from 'src/app/services/category/category.service';
 
 @Component({
   selector: 'app-category-gallery',
@@ -6,19 +7,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./category-gallery.component.scss'],
 })
 export class CategoryGalleryComponent implements OnInit {
-  categories: any[] = [
-    { name: 'Frutas & vegetais', image: 'fruits' },
-    { name: 'Proteinas', image: 'eag' },
-    { name: 'Cafés & Chás', image: 'coffee' },
-    { name: 'Bebidas alcoólicas', image: 'drink' },
-    { name: 'Padaria', image: 'bread' },
-    { name: 'Higiene', image: 'hygiene' },
-    { name: 'Laticinios', image: 'cheese' },
-  ];
+  categories!: any[] ;
 
   responsiveOptions: any[] | undefined;
 
+  constructor(private categoryService: CategoryService) {}
+
+
+
   ngOnInit() {
+    this.categoryService.getAllCategories().subscribe((response: any) => {
+      console.log('categorias ===',response);
+      this.categories = response.data
+    })
+
     this.responsiveOptions = [
       {
         breakpoint: '1199px',

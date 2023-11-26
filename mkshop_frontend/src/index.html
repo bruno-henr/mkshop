@@ -23,15 +23,12 @@
       const itemDivsArray = Array.from(containerDiv);
       itemDivsArray.forEach((el, index) => {
         const img = el.querySelector('img');
-        console.log('img =>>', img);
         if (img.complete) {
           const imgT = colorThief.getPalette(img);
-          console.log('imgT => ', imgT);
         } 
 
       })
 
-      console.log('itemDivsArray =>', itemDivsArray);
     })
 
   </script>

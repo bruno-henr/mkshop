@@ -1,0 +1,23 @@
+<div class="card flex justify-content-center">
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="flex flex-column align-items-center gap-3">
+
+    <div class="card flex flex-wrap gap-3 p-fluid">
+      <div class="flex-auto">
+        <label for="street">Rua: </label>
+        <input type="text" id="street" pInputText formControlName="street" />
+      </div>
+
+      <div class="flex-auto">
+        <label for="neighborhood">Bairro</label>
+        <input type="text" id="neighborhood" pInputText formControlName="neighborhood" />
+      </div>
+
+      <div class="flex-auto">
+        <label for="number">Número</label>
+        <input id="number" type="text" pInputText formControlName="number" />
+      </div>
+    </div>
+
+    <button type="submit" pButton class="font-bold" [disabled]="!formGroup.valid">Salvar endereço</button>
+  </form>
+</div>

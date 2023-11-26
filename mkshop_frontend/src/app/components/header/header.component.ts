@@ -20,7 +20,6 @@ export class HeaderComponent implements OnInit {
         label: 'File',
         icon: 'pi pi-fw pi-file',
         command(event) {
-          console.log(event);
         },
       },
       {

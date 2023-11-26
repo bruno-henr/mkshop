@@ -2,19 +2,20 @@
   <p-breadcrumb class="max-w-full breadcrumb-container text-sm" [model]="items" [home]="home"></p-breadcrumb>
 </div>
 
-<div class="w-full flex h-full">
-  <div class="col-7 flex-column ">
-    <h3>Carrinho ({{products.length}})</h3>
-    <div *ngFor="let product of products" class="flex flex-column gap-2">
-      <app-item [product]="product"></app-item>
+<div class="w-full flex xl:flex-row lg:flex-column md:flex-column sm:flex-column h-full ">
+  <div class="xl:col-6 lg:flex-row md:col-12 flex-column ">
+    <h3>Carrinho ({{ products.getValue().length }})</h3>
+    <div *ngFor="let product of products.getValue()" class="flex flex-column gap-2">
+      <app-item [product]="product" [handleDeleteItem]="handleDeleteItem"
+        (changeQuantityProduct)="handleUpdateQuantityProduct($event)"></app-item>
       <p-divider></p-divider>
     </div>
 
   </div>
-  <div class="col p-0">
+  <div class="col p-0 xl:block lg:hidden sm:hidden">
     <p-divider class="p-0" layout="vertical"></p-divider>
   </div>
-  <div class="col-5 flex justify-content-center">
+  <div class="xl:col-5 lg:col-12 flex justify-content-center">
     <div class="w-11 flex flex-column gap-2">
       <h3>Resultado do pedido</h3>
       <div class="flex flex-column justify-content-center flex-wrap">
@@ -36,18 +37,30 @@
         </div>
       </div>
 
-      <div class="card flex justify-content-center w-12 bg-primary">
-        <p-dropdown autoWidth="false" [options]="optionsDelivery"
-          [(ngModel)]="selectDelivery" optionLabel="name" [showClear]="true"
-          placeholder="Selecione como deseja receber"></p-dropdown>
+      <div class="card flex flex-column justify-content-center align-items-center gap-5 w-12 ">
+        <p-dropdown autoWidth="false" [options]="optionsDelivery" [(ngModel)]="selectDelivery" optionLabel="name"
+          [showClear]="true" [formControl]="methodDelivery" placeholder="Selecione como deseja receber"></p-dropdown>
+
+        <a (click)="showDialog()">Configurar endereço</a>
+
+        <p-dialog header="Endereço de entrega" [(visible)]="visible" [modal]="true" [style]="{ width: '70vw' }"
+          [draggable]="false" [resizable]="false">
+
+          <div *ngIf="address.length == 0">
+            <app-add-address></app-add-address>
+          </div>
+
+        </p-dialog>
       </div>
 
 
       <div class="card flex justify-content-center w-12 ">
-        <button [classList]="['w-12']"  pButton pRipple label="Finalizar compra" class="p-button-success"></button>
+        <p-toast></p-toast>
+        <p-confirmPopup></p-confirmPopup>
+        <button [disabled]="!methodDelivery.value" [classList]="['w-12']" pButton pRipple label="Finalizar compra"
+          class="p-button-success" (click)="handleFinishRequest()"></button>
       </div>
     </div>
-
 
   </div>
 </div>

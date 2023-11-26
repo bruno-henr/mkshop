@@ -29,7 +29,7 @@ import { DataViewModule } from 'primeng/dataview';
 import { RatingModule } from 'primeng/rating';
 import { TagModule } from 'primeng/tag';
 import { DropdownModule } from 'primeng/dropdown';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AvatarModule } from 'primeng/avatar';
 import { TableModule } from 'primeng/table';
 import { AvatarGroupModule } from 'primeng/avatargroup';
@@ -38,10 +38,15 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ToastModule } from 'primeng/toast';
 import { DividerModule } from 'primeng/divider';
+import { DialogModule } from 'primeng/dialog';
+import { PasswordModule } from 'primeng/password';
+
+import { HttpClientModule } from '@angular/common/http';
 
 // **************************************************
 import ptBr from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
+import { AddAddressComponent } from './pages/shopping-cart/components/add-address/add-address.component';
 
 registerLocaleData(ptBr);
 // **************************************************
@@ -63,6 +68,7 @@ registerLocaleData(ptBr);
     QuantityComponent,
     ShoppingCartComponent,
     ItemComponent,
+    AddAddressComponent,
   ],
   imports: [
     BrowserModule,
@@ -84,7 +90,11 @@ registerLocaleData(ptBr);
     BreadcrumbModule,
     ConfirmPopupModule,
     ToastModule,
-    DividerModule
+    DividerModule,
+    ReactiveFormsModule,
+    DialogModule,
+    HttpClientModule,
+    PasswordModule
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'pt' }],
   bootstrap: [AppComponent],

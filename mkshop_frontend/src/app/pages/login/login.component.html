@@ -1,1 +1,25 @@
-<p>login works!</p>
+<div class="w-full h-screen flex align-items-center justify-content-center bg-primary">
+  <div 
+    class="w-5 h-auto p-4 flex flex-column justify-content-center border-round-sm bg-white shadow-7 ">
+
+    <h2 style="color: var(--surface-800)">MKSHOP - ENTRAR</h2>
+    <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" 
+    class="w-full flex flex-column align-items-center gap-3 h-20rem">
+
+      <div class="flex flex-column p-3 gap-3 p-fluid w-full">
+        <div class="flex flex-column gap-2">
+          <label for="login">Login</label>
+          <input type="text" id="login" pInputText formControlName="login" />
+        </div>
+
+        <div class="flex flex-column gap-2">
+          <label for="password">Senha</label>
+          <p-password [feedback]="false" [toggleMask]="true" type="text" id="password" pInputText formControlName="password"></p-password>
+        </div>
+      </div>
+
+      <button pButton pRipple label="Entrar" class=" w-20rem"></button>
+      <a [routerLink]="'/register'">Criar conta</a>
+    </form>
+  </div>
+</div>

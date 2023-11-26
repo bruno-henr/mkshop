@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MessageService } from 'primeng/api';
+import { Product } from 'src/app/interfaces/Product';
+import { ProdutsService } from 'src/app/services/products/produts.service';
 
 interface Option {
   label: string;
@@ -9,114 +12,35 @@ interface Option {
   selector: 'app-offers',
   templateUrl: './offers.component.html',
   styleUrls: ['./offers.component.scss'],
+  providers: [MessageService]
 })
 export class OffersComponent implements OnInit {
   sortOptions!: Option[];
   sortOrder!: number;
   sortField!: string;
 
-  products: any;
+  products!: Product[];
   sortKey: Option | undefined;
 
+  constructor(
+    private productService: ProdutsService,
+    private messageService: MessageService
+  ) {}
+
+  addShoppingCard(_product: Product) {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Success',
+      detail: `${_product.name} adicionado ao carrinho`,
+    });
+    this.productService.addProduct(_product);
+  }
+
   ngOnInit(): void {
-    this.products = [
-      {
-        id: '1000',
-        code: 'f230fh0g3',
-        name: 'Bamboo Watch',
-        description: 'Product Description',
-        image: 'bamboo-watch.jpg',
-        price: 65,
-        category: 'Accessories',
-        quantity: 24,
-        inventoryStatus: 'INSTOCK',
-        rating: 5,
-      },
-      {
-        id: '1000',
-        code: 'f230fh0g3',
-        name: 'Bamboo Watch 2',
-        description: 'Product Description',
-        image: 'bamboo-watch.jpg',
-        price: 6500,
-        category: 'Teste',
-        quantity: 24,
-        inventoryStatus: 'INSTOCK',
-        rating: 5,
-      },
-      {
-        id: '1000',
-        code: 'f230fh0g3',
-        name: 'Bamboo Watch',
-        description: 'Product Description',
-        image: 'bamboo-watch.jpg',
-        price: 65,
-        category: 'Accessories',
-        quantity: 24,
-        inventoryStatus: 'INSTOCK',
-        rating: 5,
-      },
-      {
-        id: '1000',
-        code: 'f230fh0g3',
-        name: 'Bamboo Watch 2',
-        description: 'Product Description',
-        image: 'bamboo-watch.jpg',
-        price: 6500,
-        category: 'Teste',
-        quantity: 24,
-        inventoryStatus: 'INSTOCK',
-        rating: 5,
-      },
-      {
-        id: '1000',
-        code: 'f230fh0g3',
-        name: 'Bamboo Watch',
-        description: 'Product Description',
-        image: 'bamboo-watch.jpg',
-        price: 65,
-        category: 'Accessories',
-        quantity: 24,
-        inventoryStatus: 'INSTOCK',
-        rating: 5,
-      },
-      {
-        id: '1000',
-        code: 'f230fh0g3',
-        name: 'Bamboo Watch 2',
-        description: 'Product Description',
-        image: 'bamboo-watch.jpg',
-        price: 6500,
-        category: 'Teste',
-        quantity: 24,
-        inventoryStatus: 'INSTOCK',
-        rating: 5,
-      },
-      {
-        id: '1000',
-        code: 'f230fh0g3',
-        name: 'Bamboo Watch',
-        description: 'Product Description',
-        image: 'bamboo-watch.jpg',
-        price: 65,
-        category: 'Accessories',
-        quantity: 24,
-        inventoryStatus: 'INSTOCK',
-        rating: 5,
-      },
-      {
-        id: '1000',
-        code: 'f230fh0g3',
-        name: 'Bamboo Watch 2',
-        description: 'Product Description',
-        image: 'bamboo-watch.jpg',
-        price: 6500,
-        category: 'Teste',
-        quantity: 24,
-        inventoryStatus: 'INSTOCK',
-        rating: 5,
-      },
-    ];
+    this.productService.getProducts().subscribe((response: any) => {
+      console.log('lista de produtos => ', response);
+      this.products = response.data;
+    });
     this.sortOptions = [
       { label: 'Maior preço para o menor', value: '!price' },
       { label: 'Menor preço para o maior', value: 'price' },
@@ -131,7 +55,6 @@ export class OffersComponent implements OnInit {
     if (value.indexOf('!') === 0) {
       this.sortOrder = -1;
       this.sortField = value.substring(1, value.length);
-      console.log('sortField =>', this.sortField);
     } else {
       this.sortOrder = 1;
       this.sortField = value;

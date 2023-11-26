@@ -2,10 +2,13 @@
   <img class="xl:w-10rem sm:w-6rem md:w-8rem shadow-2 border-round"
     [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" />
   <div class="w-full flex flex-column gap-2 ">
-    <label>{{ product.name }}</label>
+    <label>{{ product.name }} + {{ product.id }}</label>
     <div class="grid-container">
       <div class="">
-        <app-quantity [valueQuantity]="product.qtd"></app-quantity>
+        <app-quantity 
+          (valueEmitter)="getQuantityCurrent($event, product.id)"
+
+          [valueQuantity]="product.qtd"></app-quantity>
       </div>
       <div class="flex align-items-center justify-content-center">
         <label class="font-bold price ">
@@ -15,7 +18,7 @@
       <div class="">
         <p-toast></p-toast>
         <p-confirmPopup></p-confirmPopup>
-        <p-button (click)="confirm($event)"  icon="pi pi-trash" severity="danger"></p-button>
+        <p-button (click)="confirm($event, product.id)" icon="pi pi-trash" severity="danger"></p-button>
       </div>
     </div>
   </div>

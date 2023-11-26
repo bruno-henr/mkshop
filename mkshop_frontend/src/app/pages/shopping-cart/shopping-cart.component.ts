@@ -1,137 +1,112 @@
-import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
+import { BehaviorSubject, Subscription } from 'rxjs';
+import { ProdutsService } from 'src/app/services/products/produts.service';
+import { IChangeQuantity } from './components/item/item.component';
+import { Product } from 'src/app/interfaces/Product';
+interface ProdutosCarrinho extends Product {
+  qtd: number
+}
+
+
+interface IAddress {
+  street: string;
+  neighborhood: string;
+  number: string;
+}
 
 @Component({
   selector: 'app-shopping-cart',
   templateUrl: './shopping-cart.component.html',
   styleUrls: ['./shopping-cart.component.scss'],
+  providers: [ConfirmationService, MessageService],
 })
-export class ShoppingCartComponent implements OnInit {
+export class ShoppingCartComponent implements OnInit, OnDestroy {
+  confirm($event: MouseEvent) {
+    throw new Error('Method not implemented.');
+  }
+  products = new BehaviorSubject<ProdutosCarrinho[]>([]);
+  productsSubscription!: Subscription;
+
+  mainProducts!: any[];
+
+  address: IAddress[] = [];
+  addressSelected!: IAddress;
+
   items: MenuItem[] | undefined;
 
   home: MenuItem | undefined;
-  products!: any[];
+
   total!: number;
+
   desconto: number = 0;
+
   // Dropdown
   optionsDelivery!: any;
+
   selectDelivery: any;
 
+  // Form
+  methodDelivery = new FormControl(null);
+
+  visible: boolean = false;
+
+  showDialog() {
+    this.visible = true;
+  }
+
+  handleFinishRequest() {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Confirmado',
+      detail: 'Pedido feito com sucesso!',
+    });
+  }
+
+  handleDeleteItem = (id: string) => {
+    this.productService.delete(id);
+  };
+
+  updateTotalShoppingCart() {
+    this.productService.updateTotal();
+  }
+
+  constructor(
+    private productService: ProdutsService,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService,
+  ) {}
+
+  ngOnDestroy(): void {
+    this.productsSubscription.unsubscribe();
+  }
+
+  handleUpdateQuantityProduct(data: IChangeQuantity) {
+    let productUpdated = this.productService.updateProductQuantity(data);
+    if (productUpdated != null) {
+      this.products.next(productUpdated);
+      this.total = this.productService.total;
+    }
+  }
+
   ngOnInit() {
+    // this.products.next(this.productService.getProducts()?.getValue());
+    this.methodDelivery.valueChanges.subscribe((data) => {
+    });
+
+    this.products.next(this.productService.getProductsCarrinho());
+
+    this.total = this.productService.total;
+
+    this.productsSubscription = this.products.subscribe((data) => {
+      this.productService.updateProductsFromLocalStorage(data);
+    });
+
     this.optionsDelivery = [
       { name: 'Retirar na loja', value: 'delivery' },
       { name: 'Endereço', value: 'address' },
     ];
-    this.products = [
-      {
-        id: '1000',
-        code: 'f230fh0g3',
-        name: 'Bamboo Watch',
-        description: 'Product Description',
-        image: 'bamboo-watch.jpg',
-        price: 65,
-        category: 'Accessories',
-        quantity: 24,
-        inventoryStatus: 'INSTOCK',
-        rating: 5,
-        qtd: 2,
-      },
-      {
-        id: '1000',
-        code: 'f230fh0g3',
-        name: 'Bamboo Watch 2',
-        description: 'Product Description',
-        image: 'bamboo-watch.jpg',
-        price: 6500,
-        category: 'Teste',
-        quantity: 24,
-        inventoryStatus: 'INSTOCK',
-        rating: 5,
-        qtd: 2,
-      },
-      {
-        id: '1000',
-        code: 'f230fh0g3',
-        name: 'Bamboo Watch',
-        description: 'Product Description',
-        image: 'bamboo-watch.jpg',
-        price: 65,
-        category: 'Accessories',
-        quantity: 24,
-        inventoryStatus: 'INSTOCK',
-        rating: 5,
-        qtd: 2,
-      },
-      {
-        id: '1000',
-        code: 'f230fh0g3',
-        name: 'Bamboo Watch 2',
-        description: 'Product Description',
-        image: 'bamboo-watch.jpg',
-        price: 6500,
-        category: 'Teste',
-        quantity: 24,
-        inventoryStatus: 'INSTOCK',
-        rating: 5,
-        qtd: 2,
-      },
-      {
-        id: '1000',
-        code: 'f230fh0g3',
-        name: 'Bamboo Watch',
-        description: 'Product Description',
-        image: 'bamboo-watch.jpg',
-        price: 65,
-        category: 'Accessories',
-        quantity: 24,
-        inventoryStatus: 'INSTOCK',
-        rating: 5,
-        qtd: 2,
-      },
-      {
-        id: '1000',
-        code: 'f230fh0g3',
-        name: 'Bamboo Watch 2',
-        description: 'Product Description',
-        image: 'bamboo-watch.jpg',
-        price: 6500,
-        category: 'Teste',
-        quantity: 24,
-        inventoryStatus: 'INSTOCK',
-        rating: 5,
-        qtd: 2,
-      },
-      {
-        id: '1000',
-        code: 'f230fh0g3',
-        name: 'Bamboo Watch',
-        description: 'Product Description',
-        image: 'bamboo-watch.jpg',
-        price: 65,
-        category: 'Accessories',
-        quantity: 24,
-        inventoryStatus: 'INSTOCK',
-        rating: 5,
-        qtd: 2,
-      },
-      {
-        id: '1000',
-        code: 'f230fh0g3',
-        name: 'Bamboo Watch 2',
-        description: 'Product Description',
-        image: 'bamboo-watch.jpg',
-        price: 6500,
-        category: 'Teste',
-        quantity: 24,
-        inventoryStatus: 'INSTOCK',
-        rating: 5,
-        qtd: 2,
-      },
-    ];
-
-    this.total = this.products?.reduce((prev, current) => {
-      return prev + current.price * current.qtd;
-    }, 0);
 
     this.items = [{ label: 'Carrinho de compras' }];
 
