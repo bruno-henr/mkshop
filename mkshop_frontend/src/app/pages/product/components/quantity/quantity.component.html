@@ -1,5 +1,5 @@
 <div class="w-full ">
-  <button pButton pRipple icon="pi pi-minus" (click)="minus()">
+  <button [disabled]="!(this.valueQuantity > 1)" pButton pRipple icon="pi pi-minus" (click)="minus()">
   </button>
   <input type="text" class="w-4rem text-center" readonly pInputText 
     [(ngModel)]="valueQuantity" />
