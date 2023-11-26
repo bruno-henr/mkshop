@@ -9,10 +9,11 @@ interface ProdutosCarrinho extends Product {
   qtd: number;
 }
 
+
 @Injectable({
   providedIn: 'root',
 })
-export class ProdutsService implements OnInit {
+export class ProdutsService {
   total!: number;
 
   productsCarrinho!: BehaviorSubject<ProdutosCarrinho[]>;
@@ -22,13 +23,12 @@ export class ProdutsService implements OnInit {
   constructor(private http: HttpClient, private userService: UserService) {
     this.loadProductsFromLocalStorage();
 
-    this.productsCarrinhoObservable$.subscribe((data: any) => {
+    this.productsCarrinho.subscribe((data: ProdutosCarrinho[]) => {
+      console.log('LISTA crlh ', data);
+      this.updateTotal(data);
       this.saveProductsToLocalStorage();
-      this.updateTotal();
     });
   }
-
-  ngOnInit(): void {}
 
   apiURL = 'http://localhost:8080';
 
@@ -52,6 +52,10 @@ export class ProdutsService implements OnInit {
     return this.productsCarrinho.getValue();
   }
 
+  getTotal() {
+    return this.total;
+  }
+
   updateProductQuantity(data: IChangeQuantity) {
     const index = this.productsCarrinho
       .getValue()
@@ -70,23 +74,23 @@ export class ProdutsService implements OnInit {
 
   updateProductsFromLocalStorage(productsList: ProdutosCarrinho[]) {
     this.productsCarrinho.next(productsList);
-    this.updateTotal();
-    this.saveProductsToLocalStorage();
+    //this.updateTotal();
+    //this.saveProductsToLocalStorage();
   }
 
-  updateTotal() {
-    this.total = this.productsCarrinho?.getValue().reduce((prev, current) => {
+  updateTotal(data?: ProdutosCarrinho[]) {
+    this.total = (
+      data?.length ? data : this.productsCarrinho?.getValue()
+    ).reduce((prev, current) => {
       return prev + current.price * current.qtd;
     }, 0);
   }
 
   delete(id: string) {
-    this.productsCarrinho.next(
-      this.productsCarrinho.getValue().filter((item) => item.id !== id)
-    );
-    this.updateTotal();
-    // Atualizando carrinho no localstorage
-    this.saveProductsToLocalStorage();
+    let carrinho = this.productsCarrinho.getValue();
+    const filtrado = carrinho.filter((item) => item.id !== id);
+
+    this.productsCarrinho.next(filtrado);
   }
 
   loadProductsFromLocalStorage(): void {
@@ -100,20 +104,22 @@ export class ProdutsService implements OnInit {
     } else {
       this.productsCarrinho = new BehaviorSubject<ProdutosCarrinho[]>([]);
     }
-    this.productsCarrinhoObservable$ = this.productsCarrinho.asObservable();
+    // this.productsCarrinhoObservable$ = this.productsCarrinho.asObservable();
     this.updateTotal();
   }
 
   addProduct(product: Product): void {
-    const index = this.productsCarrinho
-      .getValue()
-      .findIndex((item) => item.id === product.id);
+    let carrinho = this.productsCarrinho.getValue();
+
+    const index = carrinho.findIndex((item) => item.id === product.id);
     if (index !== -1) {
-      this.productsCarrinho.getValue()[index].qtd++;
+      carrinho[index].qtd++;
     } else {
-      this.productsCarrinho.getValue().push({ ...product, qtd: 1 });
+      carrinho.push({ ...product, qtd: 1 });
     }
-    this.updateTotal()
+    this.productsCarrinho.next(carrinho);
+
+    //this.updateTotal();
   }
 
   saveProductsToLocalStorage(): void {

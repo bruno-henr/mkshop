@@ -28,25 +28,16 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
   }
   products = new BehaviorSubject<ProdutosCarrinho[]>([]);
   productsSubscription!: Subscription;
-
   mainProducts!: any[];
-
   address: IAddress[] = [];
   addressSelected!: IAddress;
-
   items: MenuItem[] | undefined;
-
   home: MenuItem | undefined;
-
   total!: number;
-
   desconto: number = 0;
-
   // Dropdown
   optionsDelivery!: any;
-
   selectDelivery: any;
-
   // Form
   methodDelivery = new FormControl(null);
 
@@ -66,6 +57,8 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
 
   handleDeleteItem = (id: string) => {
     this.productService.delete(id);
+    this.total = this.productService.getTotal();
+    this.products.next(this.productService.getProductsCarrinho());
   };
 
   updateTotalShoppingCart() {
@@ -100,6 +93,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
 
     this.total = this.productService.total;
 
+    // Inscricao na propriedade de produto para monitorar qq mudança
     this.productsSubscription = this.products.subscribe((data) => {
       this.productService.updateProductsFromLocalStorage(data);
     });
