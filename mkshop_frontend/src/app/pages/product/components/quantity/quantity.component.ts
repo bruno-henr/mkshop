@@ -14,7 +14,8 @@ export class QuantityComponent implements OnInit {
   }
 
   minus() {
-    if (this.valueQuantity != 0) {
+    
+    if (this.valueQuantity > 1) {
       this.valueQuantity--;
       this.handleEmmiter(this.valueQuantity);
     }
