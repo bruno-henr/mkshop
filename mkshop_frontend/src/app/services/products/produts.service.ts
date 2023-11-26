@@ -6,7 +6,7 @@ import { UserService } from '../user/user-service.service';
 import { Product } from 'src/app/interfaces/Product';
 
 interface ProdutosCarrinho extends Product {
-  qtd: number
+  qtd: number;
 }
 
 @Injectable({
@@ -14,10 +14,21 @@ interface ProdutosCarrinho extends Product {
 })
 export class ProdutsService implements OnInit {
   total!: number;
-  productsCarrinho = new BehaviorSubject<ProdutosCarrinho[]>([]);
+
+  productsCarrinho!: BehaviorSubject<ProdutosCarrinho[]>;
+  productsCarrinhoObservable$!: any;
   products!: any[];
 
-  constructor(private http: HttpClient, private userService: UserService) {}
+  constructor(private http: HttpClient, private userService: UserService) {
+    this.loadProductsFromLocalStorage();
+
+    this.productsCarrinhoObservable$.subscribe((data: any) => {
+      this.saveProductsToLocalStorage();
+      this.updateTotal();
+    });
+  }
+
+  ngOnInit(): void {}
 
   apiURL = 'http://localhost:8080';
 
@@ -35,11 +46,6 @@ export class ProdutsService implements OnInit {
 
   getProducts() {
     return this.http.get(this.apiURL + '/product', this.httpOptions);
-  }
-
-  ngOnInit(): void {
-    this.loadProductsFromLocalStorage();
-    this.updateTotal();
   }
 
   getProductsCarrinho() {
@@ -78,30 +84,36 @@ export class ProdutsService implements OnInit {
     this.productsCarrinho.next(
       this.productsCarrinho.getValue().filter((item) => item.id !== id)
     );
+    this.updateTotal();
+    // Atualizando carrinho no localstorage
+    this.saveProductsToLocalStorage();
   }
 
   loadProductsFromLocalStorage(): void {
     const savedProducts = localStorage.getItem('products');
-    console.log('localstoragfe prod ', savedProducts);
+
     if (savedProducts) {
-      this.productsCarrinho.next(JSON.parse(savedProducts));
+      const parsedProducts: ProdutosCarrinho[] = JSON.parse(savedProducts);
+      this.productsCarrinho = new BehaviorSubject<ProdutosCarrinho[]>(
+        parsedProducts
+      );
     } else {
-      this.productsCarrinho.next([]);
+      this.productsCarrinho = new BehaviorSubject<ProdutosCarrinho[]>([]);
     }
+    this.productsCarrinhoObservable$ = this.productsCarrinho.asObservable();
+    this.updateTotal();
   }
 
   addProduct(product: Product): void {
     const index = this.productsCarrinho
       .getValue()
       .findIndex((item) => item.id === product.id);
-
-    if(index != -1) {
+    if (index !== -1) {
       this.productsCarrinho.getValue()[index].qtd++;
     } else {
-      this.productsCarrinho.getValue().push({...product, qtd: 1 });
+      this.productsCarrinho.getValue().push({ ...product, qtd: 1 });
     }
-
-    this.saveProductsToLocalStorage();
+    this.updateTotal()
   }
 
   saveProductsToLocalStorage(): void {
