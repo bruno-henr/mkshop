@@ -1,15 +1,34 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AutoCompleteCompleteEvent } from 'primeng/autocomplete';
+import { ProdutsService } from 'src/app/services/products/produts.service';
 
 @Component({
   selector: 'app-input-search',
   templateUrl: './input-search.component.html',
   styleUrls: ['./input-search.component.scss'],
 })
-export class InputSearchComponent {
-  search($event: AutoCompleteCompleteEvent) {
-    throw new Error('Method not implemented.');
+export class InputSearchComponent implements OnInit {
+  constructor(private productService: ProdutsService) {}
+  ngOnInit(): void {
+    this.productService.getProducts().subscribe((response:any) => {
+      this.products = response.data
+    })
   }
   selectedItem: any;
-  suggestions: any[] = [];
+  filteredProducts: any[] = [];
+  products: any[] | undefined;
+
+  search(event: AutoCompleteCompleteEvent) {
+    console.log(event.query);
+    this.productService.getProducts(event.query).subscribe((response: any) => {
+      console.log('response product => ', response);
+      this.filteredProducts = response.data
+    })
+  }
+
+  selectProduct(data: any) {
+    this.selectedItem = data.value.name
+    
+  }
+  
 }
