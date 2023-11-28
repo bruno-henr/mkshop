@@ -1,4 +1,12 @@
+:host ::ng-deep {
 
-:host ::ng-deep .p-dropdown {
-    width: 450px !important;
+    .p-dropdown {
+        width: 450px !important;
+
+    }
+
+    a:hover {
+        text-decoration: underline !important;
+        cursor: pointer;
+    }
 }

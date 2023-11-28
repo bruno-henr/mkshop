@@ -47,6 +47,7 @@ import { HttpClientModule } from '@angular/common/http';
 import ptBr from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
 import { AddAddressComponent } from './pages/shopping-cart/components/add-address/add-address.component';
+import { ManagerAddressComponent } from './pages/shopping-cart/components/manager-address/manager-address.component';
 
 registerLocaleData(ptBr);
 // **************************************************
@@ -69,6 +70,7 @@ registerLocaleData(ptBr);
     ShoppingCartComponent,
     ItemComponent,
     AddAddressComponent,
+    ManagerAddressComponent,
   ],
   imports: [
     BrowserModule,

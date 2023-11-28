@@ -5,10 +5,11 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 import { ProdutsService } from 'src/app/services/products/produts.service';
 import { IChangeQuantity } from './components/item/item.component';
 import { Product } from 'src/app/interfaces/Product';
+import { Address } from 'src/app/interfaces/Address';
+import { UserService } from 'src/app/services/user/user-service.service';
 interface ProdutosCarrinho extends Product {
-  qtd: number
+  qtd: number;
 }
-
 
 interface IAddress {
   street: string;
@@ -26,10 +27,11 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
   confirm($event: MouseEvent) {
     throw new Error('Method not implemented.');
   }
+  showSettingAddress: boolean = false;
+  btnFinished: boolean = false;
   products = new BehaviorSubject<ProdutosCarrinho[]>([]);
   productsSubscription!: Subscription;
   mainProducts!: any[];
-  address: IAddress[] = [];
   addressSelected!: IAddress;
   items: MenuItem[] | undefined;
   home: MenuItem | undefined;
@@ -42,6 +44,8 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
   methodDelivery = new FormControl(null);
 
   visible: boolean = false;
+  address!: Address;
+  showDialogAddAddress = true;
 
   showDialog() {
     this.visible = true;
@@ -53,6 +57,13 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
       summary: 'Confirmado',
       detail: 'Pedido feito com sucesso!',
     });
+    console.log({
+      carrinho: this.products.getValue(),
+      total: this.total,
+      tipoEntrega: this.methodDelivery.value,
+      endereco: this.address
+    }) 
+    console.log('methodDelivery ', this.methodDelivery.value);
   }
 
   handleDeleteItem = (id: string) => {
@@ -69,6 +80,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
     private productService: ProdutsService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
+    private userService: UserService
   ) {}
 
   ngOnDestroy(): void {
@@ -83,12 +95,39 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
     }
   }
 
+  handleSetAddress(address: Address) {
+    console.log('handleSetAddress => ', address);
+    if (!this.address) {
+      this.userService.addAddressToUser(address);
+      this.getAddressToUser();
+    }
+    this.showDialogAddAddress = false;
+    this.visible = false;
+  }
+
+  getAddressToUser() {
+    let user = JSON.parse(localStorage.getItem('user') as string);
+    
+    this.address = user.address;
+    this.showDialogAddAddress = false;
+  }
+
   ngOnInit() {
-    // this.products.next(this.productService.getProducts()?.getValue());
-    this.methodDelivery.valueChanges.subscribe((data) => {
+    this.getAddressToUser();
+
+    this.methodDelivery.valueChanges.subscribe((data: any) => {
+      if (data) {
+        if (data.value === 'address') {
+          this.showSettingAddress = true;
+          this.btnFinished = (this.address.id != null)
+        } else {
+          this.showSettingAddress = false;
+          this.btnFinished = true
+        }
+      }
     });
     const produtosCarrinho = this.productService.getProductsCarrinho();
-    
+
     this.products.next(produtosCarrinho);
 
     this.total = this.productService.total;

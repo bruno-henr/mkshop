@@ -41,15 +41,21 @@
         <p-dropdown autoWidth="false" [options]="optionsDelivery" [(ngModel)]="selectDelivery" optionLabel="name"
           [showClear]="true" [formControl]="methodDelivery" placeholder="Selecione como deseja receber"></p-dropdown>
 
-        <a (click)="showDialog()">Configurar endereço</a>
 
-        <p-dialog header="Endereço de entrega" [(visible)]="visible" [modal]="true" [style]="{ width: '70vw' }"
-          [draggable]="false" [resizable]="false">
+        <a *ngIf="showSettingAddress" (click)="showDialog()">
+          {{ address?.id ? 'Ver endereço' : 'Configurar endereço' }}
+        </a>
 
-          <div *ngIf="address.length == 0">
-            <app-add-address></app-add-address>
+
+        <p-dialog header="Endereço" [(visible)]="visible" [modal]="true" [style]="{ width: '70vw' }" [draggable]="false"
+          [resizable]="false">
+
+          <div *ngIf="showDialogAddAddress">
+            <app-add-address (addressEvent)="handleSetAddress($event)"></app-add-address>
           </div>
-
+          <div *ngIf="address?.id">
+            <app-manager-address [address]="address"></app-manager-address>
+          </div>
         </p-dialog>
       </div>
 
@@ -57,7 +63,7 @@
       <div class="card flex justify-content-center w-12 ">
         <p-toast></p-toast>
         <p-confirmPopup></p-confirmPopup>
-        <button [disabled]="!methodDelivery.value" [classList]="['w-12']" pButton pRipple label="Finalizar compra"
+        <button [disabled]="!btnFinished" [classList]="['w-12']" pButton pRipple label="Finalizar compra"
           class="p-button-success" (click)="handleFinishRequest()"></button>
       </div>
     </div>

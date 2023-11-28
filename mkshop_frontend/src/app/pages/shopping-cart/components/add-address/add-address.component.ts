@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { AddressService } from 'src/app/services/address/address.service';
 
@@ -10,13 +10,14 @@ import { AddressService } from 'src/app/services/address/address.service';
 export class AddAddressComponent implements OnInit {
   formGroup!: FormGroup;
   street: any;
-  addressEvent = new EventEmitter();
+  @Output() addressEvent = new EventEmitter();
 
   constructor(private addressService: AddressService) {}
 
   onSubmit() {
     if (this.formGroup.valid) {
-      // this.addressEvent.emit(this.formGroup.value);
+      console.log('essa ', this.formGroup.value);
+      this.addressEvent.emit(this.formGroup.value);
     }
   }
   ngOnInit() {
