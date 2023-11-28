@@ -10,10 +10,16 @@ export const authenticationGuard: CanActivateFn = async (route, state) => {
   //   window.localStorage.getItem('token') as string
   // ).token;
   const token = inject(UserService).getTokenJWT();
+  const userService = inject(UserService);
   const router = inject(Router);
   
   const req$ = inject(LoginService).validToken(token);
   return await lastValueFrom(req$).then(response => {
+
+    userService.getUserByUsername(response).subscribe((res: any) => {
+      
+      localStorage.setItem('user', JSON.stringify(res.data));
+    })
     return true
   }).catch(e => {
     console.log('essa piriquita ', e);
