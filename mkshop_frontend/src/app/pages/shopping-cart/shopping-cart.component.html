@@ -43,7 +43,7 @@
 
 
         <a *ngIf="showSettingAddress" (click)="showDialog()">
-          {{ address?.id ? 'Ver endereço' : 'Configurar endereço' }}
+          {{ address ? 'Ver endereço' : 'Configurar endereço' }}
         </a>
 
 
@@ -53,7 +53,7 @@
           <div *ngIf="showDialogAddAddress">
             <app-add-address (addressEvent)="handleSetAddress($event)"></app-add-address>
           </div>
-          <div *ngIf="address?.id">
+          <div *ngIf="address">
             <app-manager-address [address]="address"></app-manager-address>
           </div>
         </p-dialog>

@@ -7,6 +7,8 @@ import { IChangeQuantity } from './components/item/item.component';
 import { Product } from 'src/app/interfaces/Product';
 import { Address } from 'src/app/interfaces/Address';
 import { UserService } from 'src/app/services/user/user-service.service';
+import { OrderService } from 'src/app/services/order/order.service';
+import { Router } from '@angular/router';
 interface ProdutosCarrinho extends Product {
   qtd: number;
 }
@@ -52,18 +54,44 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
   }
 
   handleFinishRequest() {
-    this.messageService.add({
-      severity: 'success',
-      summary: 'Confirmado',
-      detail: 'Pedido feito com sucesso!',
-    });
-    console.log({
-      carrinho: this.products.getValue(),
+    let carrinho: any = {
+      productsOrder: this.products.getValue(),
       total: this.total,
-      tipoEntrega: this.methodDelivery.value,
-      endereco: this.address
-    }) 
-    console.log('methodDelivery ', this.methodDelivery.value);
+      method_payment: '',
+      user: {},
+    };
+    let metodo: any = this.methodDelivery.value;
+    carrinho.method_payment =
+      metodo.value == 'delivery' ? 'RETIRAR_LOJA' : 'ENTREGA';
+
+    if (carrinho.method_payment == 'ENTREGA') {
+      carrinho.address = this.address;
+    } else {
+      delete carrinho.address;
+    }
+    console.log(carrinho);
+    this.orderService.createOrder(carrinho).subscribe(
+      (response: any) => {
+        console.log('response order => ', response);
+
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Confirmado',
+          detail: 'Pedido feito com sucesso!',
+        });
+        setTimeout(() => {
+          this.route.navigate(['/']);
+          window.localStorage.removeItem('products')
+        }, 1000);
+      },
+      (erro: any) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Erro',
+          detail: 'Houve um erro ao salvar seu pedido',
+        });
+      }
+    );
   }
 
   handleDeleteItem = (id: string) => {
@@ -78,9 +106,10 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
 
   constructor(
     private productService: ProdutsService,
-    private confirmationService: ConfirmationService,
     private messageService: MessageService,
-    private userService: UserService
+    private userService: UserService,
+    private orderService: OrderService,
+    private route: Router
   ) {}
 
   ngOnDestroy(): void {
@@ -107,7 +136,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
 
   getAddressToUser() {
     let user = JSON.parse(localStorage.getItem('user') as string);
-    
+
     this.address = user.address;
     this.showDialogAddAddress = false;
   }
@@ -119,10 +148,10 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
       if (data) {
         if (data.value === 'address') {
           this.showSettingAddress = true;
-          this.btnFinished = (this.address.id != null)
+          this.btnFinished = this.address.id != null;
         } else {
           this.showSettingAddress = false;
-          this.btnFinished = true
+          this.btnFinished = true;
         }
       }
     });
