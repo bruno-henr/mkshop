@@ -1,14 +1,13 @@
 import { Injectable, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { IChangeQuantity } from '../../pages/shopping-cart/components/item/item.component';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { UserService } from '../user/user-service.service';
 import { Product } from 'src/app/interfaces/Product';
 
 interface ProdutosCarrinho extends Product {
   qtd: number;
 }
-
 
 @Injectable({
   providedIn: 'root',
@@ -44,7 +43,14 @@ export class ProdutsService {
     return this.http.get(this.apiURL + '/product/main', this.httpOptions);
   }
 
-  getProducts() {
+  getProducts(productName?: string) {
+    if (productName) {
+      let params = new HttpParams().set('name', productName);
+      return this.http.get(this.apiURL + '/product', {
+        params: params,
+        headers: this.httpOptions.headers,
+      });
+    }
     return this.http.get(this.apiURL + '/product', this.httpOptions);
   }
 
