@@ -1,14 +1,18 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { Address } from 'src/app/interfaces/Address';
+import { User } from 'src/app/interfaces/User';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private token_jwt = JSON.parse(
-    window.localStorage.getItem('token') as string
-  ).token;
+  
+  private token_jwt = JSON.parse(window.localStorage.getItem('token') as string)
+    .token;
+
+  private user!: User;
 
   constructor(private http: HttpClient) {}
   apiURL = 'http://localhost:8080';
@@ -31,9 +35,17 @@ export class UserService {
   }
 
   getUserByUsername(username: string) {
-    return this.http.get(this.apiURL + '/user/username', {
+    let result = this.http.get(this.apiURL + '/user/username', {
       params: new HttpParams().set('username', username),
-    });
+    })
+
+    
+
+    return result
+  }
+
+  addAddressToUser(address: Address) {
+    throw new Error('Method not implemented.');
   }
 
   public getUserIfLogged(): Observable<boolean> {
