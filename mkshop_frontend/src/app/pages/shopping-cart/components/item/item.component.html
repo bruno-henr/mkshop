@@ -15,7 +15,7 @@
           {{ product.price * product.qtd | currency : 'BRL'}}
         </label>
       </div>
-      <div class="">
+      <div>
         <p-toast></p-toast>
         <p-confirmPopup></p-confirmPopup>
         <p-button (click)="confirm($event, product.id)" icon="pi pi-trash" severity="danger"></p-button>
