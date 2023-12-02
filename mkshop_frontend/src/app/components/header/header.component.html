@@ -3,8 +3,9 @@
     <div class="col">
       <div class="text-center p-3 border-round-sm  font-bold">
         <div class="flex flex-row flex-wrap gap-7">
-
-          <img src="https://primefaces.org/cdn/primeng/images/primeng.svg" height="40" />
+          <div [routerLink]="['/']" class="cursor-pointer">
+            <img src="https://primefaces.org/cdn/primeng/images/primeng.svg" height="40" />
+          </div>
 
           <app-input-search></app-input-search>
         </div>

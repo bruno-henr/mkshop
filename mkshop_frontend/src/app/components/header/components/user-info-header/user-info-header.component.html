@@ -6,7 +6,7 @@
     <span>Entre ou cadastre-se</span>
   </div>
   <div id="txt-align" class="flex flex-column" *ngIf="logado">
-    <label><span>Seja bem vindo, </span><br /> Bruno Henrique</label>
-    <span><a href="">Ver perfil</a></span>
+    <label><span>Seja bem vindo, </span><br /> {{ user.full_name.split(' ')[0]}} </label>
+    <span><a [routerLink]="['perfil']">Ver perfil</a></span>
   </div>
 </div>
