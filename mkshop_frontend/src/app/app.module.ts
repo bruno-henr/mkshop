@@ -40,6 +40,8 @@ import { ToastModule } from 'primeng/toast';
 import { DividerModule } from 'primeng/divider';
 import { DialogModule } from 'primeng/dialog';
 import { PasswordModule } from 'primeng/password';
+import { AccordionModule } from 'primeng/accordion';
+import { PickListModule } from 'primeng/picklist';
 
 import { HttpClientModule } from '@angular/common/http';
 
@@ -48,6 +50,10 @@ import ptBr from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
 import { AddAddressComponent } from './pages/shopping-cart/components/add-address/add-address.component';
 import { ManagerAddressComponent } from './pages/shopping-cart/components/manager-address/manager-address.component';
+import { OrdersComponent } from './pages/orders/orders.component';
+import { ListaPedidosComponent } from './pages/orders/components/lista-pedidos/lista-pedidos.component';
+import { ListarProdutosPedidoComponent } from './pages/orders/components/listar-produtos-pedido/listar-produtos-pedido.component';
+import { CalcularPedidoPipe } from './pipes/CalcularPedido.pipe';
 
 registerLocaleData(ptBr);
 // **************************************************
@@ -71,6 +77,10 @@ registerLocaleData(ptBr);
     ItemComponent,
     AddAddressComponent,
     ManagerAddressComponent,
+    OrdersComponent,
+    ListaPedidosComponent,
+    ListarProdutosPedidoComponent,
+    CalcularPedidoPipe
   ],
   imports: [
     BrowserModule,
@@ -96,7 +106,9 @@ registerLocaleData(ptBr);
     ReactiveFormsModule,
     DialogModule,
     HttpClientModule,
-    PasswordModule
+    PasswordModule,
+    AccordionModule,
+    PickListModule
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'pt' }],
   bootstrap: [AppComponent],

@@ -6,6 +6,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { ProductComponent } from './pages/product/product.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
+import { OrdersComponent } from './pages/orders/orders.component';
 
 const routes: Routes = [
   {
@@ -13,7 +14,8 @@ const routes: Routes = [
     component: HomeComponent,
     children: [
       { path: '', component: HomePageComponent },
-      { path: 'produto', component: ProductComponent },
+      { path: 'produto/:product_name', component: ProductComponent },
+      { path: 'pedidos', component: OrdersComponent },
       { path: 'carrinho', component: ShoppingCartComponent },
     ],
     canActivate: [authenticationGuard]
