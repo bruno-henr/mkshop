@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -52,5 +52,15 @@ export class OrderService {
       updated_at: user.updated_at,
     };
     return this.http.post(`${this.apiURL}/order`, data, this.httpOptions);
+  }
+
+  getOrderByUser() {
+    let user = JSON.parse(localStorage.getItem('user') as string);
+    let params = new HttpParams().set('user_id', user.id);
+
+    return this.http.get(this.apiURL + '/order', {
+      params: params,
+      headers: this.httpOptions.headers,
+    });
   }
 }

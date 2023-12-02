@@ -114,14 +114,14 @@ export class ProdutsService {
     this.updateTotal();
   }
 
-  addProduct(product: Product): void {
+  addProduct(product: Product, qtd?: number): void {
     let carrinho = this.productsCarrinho.getValue();
 
     const index = carrinho.findIndex((item) => item.id === product.id);
     if (index !== -1) {
       carrinho[index].qtd++;
     } else {
-      carrinho.push({ ...product, qtd: 1 });
+      carrinho.push({ ...product, qtd: qtd || 1 });
     }
     this.productsCarrinho.next(carrinho);
 
