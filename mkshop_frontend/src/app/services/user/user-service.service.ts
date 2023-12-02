@@ -29,6 +29,10 @@ export class UserService {
     return this.token_jwt;
   }
 
+  getUser() {
+    return JSON.parse(window.localStorage.getItem('user') as string)
+  }
+
   updateTokenJWT(token: string) {
     this.token_jwt = token;
     window.localStorage.setItem('token', JSON.stringify({ token: token }));
