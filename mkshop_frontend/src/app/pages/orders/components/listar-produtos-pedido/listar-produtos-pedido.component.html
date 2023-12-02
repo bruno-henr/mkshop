@@ -1,0 +1,36 @@
+<div class="card">
+  <p-dataView #dv [value]="products">
+    <ng-template let-product pTemplate="listItem">
+      <div class="col-12">
+        <div class="flex flex-row xl:flex-row xl:align-items-start p-4 gap-4">
+          <img class="w-5 sm:w-14rem xl:w-8rem shadow-2 block xl:block mx-auto border-round"
+            [src]="'assets/' + product.product.img_url" [alt]="product.name" />
+          <div
+            class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4"
+          >
+            <div class="flex flex-column align-items-center sm:align-items-start gap-3">
+              <div class="text-2xl sm:text-sm font-bold text-900">
+                {{ product.product.name }}
+              </div>
+
+              <div class="flex align-items-center gap-3">
+                <span class="flex align-items-center gap-2">
+                  <i class="pi pi-tag"></i>
+                  <span class="font-semibold sm:text-sm">{{ product.product.category.name }}</span>
+                </span>
+
+              </div>
+            </div>
+            <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
+              <span class="text-2xl sm:text-sm font-semibold">{{  product.product.price | currency : 'BRL' }}</span>
+              <p>Quantidade: {{ product.qtd }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </p-dataView>
+  <div class="w-full flex flex-row align-items-end">
+    <h2 class="text-teal-600">Total: {{ products | calcularPedido | currency : 'BRL'  }}</h2>
+  </div>
+</div>
