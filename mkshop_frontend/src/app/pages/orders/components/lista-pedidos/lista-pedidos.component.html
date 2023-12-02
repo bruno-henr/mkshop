@@ -1,0 +1,11 @@
+<div class="card flex flex-column justify-content-center ">
+  <h2>Historico de pedidos</h2>
+  <p-accordion class="w-full">
+    <div *ngFor="let item of orders;index as i;">
+      <p-accordionTab header="Pedido #{{i+1}}">
+        <app-listar-produtos-pedido [products]="item.productOrders"></app-listar-produtos-pedido>
+      </p-accordionTab>
+    </div>
+
+  </p-accordion>
+</div>
