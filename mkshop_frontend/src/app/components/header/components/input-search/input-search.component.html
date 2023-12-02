@@ -1,16 +1,26 @@
 <div>
 
   <p-autoComplete 
-  [(ngModel)]="selectedItem" 
-  [suggestions]="suggestions" 
-  (completeMethod)="search($event)" 
+    [(ngModel)]="selectedItem" 
+    [suggestions]="filteredProducts" 
+    (completeMethod)="search($event)" 
     [inputStyle]="{
-      borderTopRightRadius: '0px',
-      borderBottomRightRadius: '0px',
-      width: '320px'
+        borderTopRightRadius: '0px',
+        borderBottomRightRadius: '0px',
+        width: '320px'
     }" 
     placeholder="Pesquise por produtos ou categorias"
-  ></p-autoComplete>
+    field="product"
+    (onSelect)="selectProduct($event)"
+  >
+
+    <ng-template let-product pTemplate="item" >
+      <div class="flex align-items-center gap-2" >
+          <img src="assets/{{ product.img_url}}" style="width: 18px"/>
+          <div>{{ product.name }}</div>
+      </div>
+    </ng-template>
+  </p-autoComplete>
 
 
   <p-button 
