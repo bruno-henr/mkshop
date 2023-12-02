@@ -42,7 +42,6 @@ import { DialogModule } from 'primeng/dialog';
 import { PasswordModule } from 'primeng/password';
 import { AccordionModule } from 'primeng/accordion';
 import { PickListModule } from 'primeng/picklist';
-
 import { HttpClientModule } from '@angular/common/http';
 
 // **************************************************
@@ -54,6 +53,7 @@ import { OrdersComponent } from './pages/orders/orders.component';
 import { ListaPedidosComponent } from './pages/orders/components/lista-pedidos/lista-pedidos.component';
 import { ListarProdutosPedidoComponent } from './pages/orders/components/listar-produtos-pedido/listar-produtos-pedido.component';
 import { CalcularPedidoPipe } from './pipes/CalcularPedido.pipe';
+import { PerfilComponent } from './pages/perfil/perfil.component';
 
 registerLocaleData(ptBr);
 // **************************************************
@@ -80,7 +80,8 @@ registerLocaleData(ptBr);
     OrdersComponent,
     ListaPedidosComponent,
     ListarProdutosPedidoComponent,
-    CalcularPedidoPipe
+    CalcularPedidoPipe,
+    PerfilComponent
   ],
   imports: [
     BrowserModule,
