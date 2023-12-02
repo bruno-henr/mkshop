@@ -2,3 +2,16 @@
     
     
 }
+:host ::ng-deep {
+    #container-main {
+        // background-color: red;
+        display: block;
+        height: auto !important;
+        #c-center {
+            // background-color: purple !important;
+            display: flex !important;
+            flex-direction: column !important;
+            // height: 9000px;
+        }
+    }
+}
