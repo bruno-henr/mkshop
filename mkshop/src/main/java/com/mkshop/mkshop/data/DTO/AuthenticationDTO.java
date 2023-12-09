@@ -1,4 +1,4 @@
-package com.mkshop.mkshop.domain.DTO;
+package com.mkshop.mkshop.data.DTO;
 
 public record AuthenticationDTO(String username, String password) {
 }

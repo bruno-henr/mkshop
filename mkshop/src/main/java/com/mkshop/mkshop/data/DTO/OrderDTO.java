@@ -1,7 +1,7 @@
-package com.mkshop.mkshop.domain.DTO;
+package com.mkshop.mkshop.data.DTO;
 
-import com.mkshop.mkshop.model.Address;
-import com.mkshop.mkshop.model.User;
+import com.mkshop.mkshop.data.infrastructure.model.Address;
+import com.mkshop.mkshop.data.infrastructure.model.User;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.mkshop.mkshop.data.model;
+package com.mkshop.mkshop.data.infrastructure.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -45,5 +45,9 @@ public class ProductOrder {
     @Column
     private Integer qtd;
 
-
+    public ProductOrder(Product product, Order order, Integer qtd) {
+        this.product = product;
+        this.order = order;
+        this.qtd = qtd;
+    }
 }

@@ -1,4 +1,4 @@
-package com.mkshop.mkshop.repository;
+package com.mkshop.mkshop.data.infrastructure.persistence;
 
 import com.mkshop.mkshop.data.infrastructure.model.ProductOrder;
 import org.springframework.data.jpa.repository.JpaRepository;

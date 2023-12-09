@@ -1,4 +1,4 @@
-package com.mkshop.mkshop.data.model;
+package com.mkshop.mkshop.data.infrastructure.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -41,4 +41,9 @@ public class Address {
     @Column
     private String number;
 
+    public Address(String neighborhood, String street, String number) {
+        this.neighborhood = neighborhood;
+        this.street = street;
+        this.number = number;
+    }
 }

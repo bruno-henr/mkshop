@@ -1,6 +1,6 @@
-package com.mkshop.mkshop.infra;
+package com.mkshop.core.configurations.infra;
 
-import com.mkshop.mkshop.repository.UserRepository;
+import com.mkshop.mkshop.data.infrastructure.persistence.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

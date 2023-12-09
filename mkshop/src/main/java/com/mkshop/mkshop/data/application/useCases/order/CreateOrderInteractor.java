@@ -1,4 +1,4 @@
-package com.mkshop.mkshop.data.infrastructure.controllers.order;
+package com.mkshop.mkshop.data.application.useCases.order;
 
 import com.mkshop.mkshop.data.application.gateways.OrderGateway;
 import com.mkshop.mkshop.domain.entities.OrderEntity;

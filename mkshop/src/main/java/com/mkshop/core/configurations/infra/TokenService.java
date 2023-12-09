@@ -1,4 +1,4 @@
-package com.mkshop.mkshop.infra;
+package com.mkshop.core.configurations.infra;
 
 
 import com.auth0.jwt.JWT;

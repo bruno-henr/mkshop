@@ -1,7 +1,7 @@
-package com.mkshop.mkshop.services;
+package com.mkshop.mkshop.data.services;
 
 
-import com.mkshop.mkshop.repository.UserRepository;
+import com.mkshop.mkshop.data.infrastructure.persistence.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -3,8 +3,8 @@ package com.mkshop.mkshop.domain.entities;
 import jakarta.annotation.Nullable;
 import java.util.List;
 
-public record Category(
+public record CategoryEntity(
         String name,
-        List<Product> product,
+        List<ProductEntity> product,
         @Nullable String id
 ) { }

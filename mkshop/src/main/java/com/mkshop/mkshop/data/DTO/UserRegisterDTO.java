@@ -1,11 +1,6 @@
-package com.mkshop.mkshop.domain.DTO;
+package com.mkshop.mkshop.data.DTO;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.mkshop.mkshop.enums.UserRole;
-import com.mkshop.mkshop.model.Address;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.OneToOne;
+import com.mkshop.mkshop.data.enums.UserRole;
 
 public record UserRegisterDTO(
         String full_name,

@@ -1,4 +1,4 @@
-package com.mkshop.mkshop.data.model;
+package com.mkshop.mkshop.data.infrastructure.model;
 
 import com.fasterxml.jackson.annotation.*;
 import com.mkshop.mkshop.data.enums.UserRole;
@@ -28,6 +28,17 @@ import java.util.List;
         property = "id"
 )
 public class User implements UserDetails {
+
+    public User(String full_name, String username, String password, String phone_number, String cpf, Address address, List<Order> order, UserRole role) {
+        this.full_name = full_name;
+        this.username = username;
+        this.password = password;
+        this.phone_number = phone_number;
+        this.cpf = cpf;
+        this.address = address;
+        this.order = order;
+        this.role = role;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

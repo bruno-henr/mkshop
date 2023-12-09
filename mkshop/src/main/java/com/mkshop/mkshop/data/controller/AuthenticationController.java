@@ -1,19 +1,18 @@
-package com.mkshop.mkshop.controller;
+package com.mkshop.mkshop.data.controller;
 
-import com.mkshop.mkshop.domain.entity.DTO.AuthenticationDTO;
-import com.mkshop.mkshop.core.response.ResponseAPI;
-import com.mkshop.mkshop.infra.TokenService;
-import com.mkshop.mkshop.model.User;
-import jakarta.validation.Valid;
+import com.mkshop.core.response.ResponseAPI;
+import com.mkshop.mkshop.data.DTO.AuthenticationDTO;
+import com.mkshop.mkshop.data.DTO.ValidTokenDTO;
+import com.mkshop.core.configurations.infra.TokenService;
+import com.mkshop.mkshop.data.infrastructure.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Objects;
 
 @RestController
 @RequestMapping("auth")
@@ -23,17 +22,53 @@ public class AuthenticationController {
     @Autowired
     TokenService tokenService;
 
+    @PostMapping("/validarToken")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<ResponseAPI<String>> validarToken(@RequestBody ValidTokenDTO token) {
+        try {
+            System.out.println("token "+token);
+            String tokenValited = this.tokenService.validateToken(token.token());
+            System.out.println("token verificado => "+tokenValited);
+            if(!Objects.equals(tokenValited, "")) {
+                return new ResponseEntity<>(
+                        new ResponseAPI<>(tokenValited, false, HttpStatus.OK.value(), null),
+                        HttpStatus.OK
+                );
+
+            }
+            return new ResponseEntity<>(
+                    new ResponseAPI<>(null, true, HttpStatus.BAD_REQUEST.value(), "token invalido"),
+                    HttpStatus.BAD_REQUEST
+            );
+        } catch (Exception e) {
+            return new ResponseEntity<>(
+                    new ResponseAPI<>(null, true, HttpStatus.BAD_REQUEST.value(), "token invalido"),
+                    HttpStatus.BAD_REQUEST
+            );
+        }
+    }
 
     @PostMapping("/login")
-    public ResponseEntity<ResponseAPI<String>> login(@RequestBody @Valid AuthenticationDTO data) {
-        var usernamePassword = new UsernamePasswordAuthenticationToken(data.username(), data.password());
-        var auth = this.authenticationManager.authenticate(usernamePassword);
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<ResponseAPI<String>> login(@RequestBody  AuthenticationDTO data) {
 
-        var token = tokenService.generateToken((User) auth.getPrincipal());
+        try {
+            var usernamePassword = new UsernamePasswordAuthenticationToken(data.username(), data.password());
+            var auth = this.authenticationManager.authenticate(usernamePassword);
 
-        return new ResponseEntity<>(
-                new ResponseAPI<>(token, false, HttpStatus.OK.value(), null),
-                HttpStatus.OK
-        );
+            var token = tokenService.generateToken((User) auth.getPrincipal());
+            System.out.println("token =>"+token);
+            return new ResponseEntity<>(
+                    new ResponseAPI<>(token, false, HttpStatus.OK.value(), null),
+                    HttpStatus.OK
+            );
+        } catch (Exception e) {
+            System.out.println("erro => "+e);
+            return new ResponseEntity<>(
+                    new ResponseAPI<>(null, true, HttpStatus.BAD_REQUEST.value(), e.toString()),
+                    HttpStatus.BAD_REQUEST
+            );
+        }
+
     }
 }

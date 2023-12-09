@@ -1,9 +1,6 @@
-package com.mkshop.mkshop.domain.DTO;
+package com.mkshop.mkshop.data.DTO;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.mkshop.mkshop.model.Product;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import com.mkshop.mkshop.data.infrastructure.model.Product;
 
 public record ImageProductDTO(
         String img_url, Product product

@@ -1,4 +1,4 @@
-package com.mkshop.mkshop.infra;
+package com.mkshop.core.configurations.infra;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;

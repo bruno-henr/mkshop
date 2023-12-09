@@ -1,4 +1,4 @@
-package com.mkshop.mkshop.infra;
+package com.mkshop.core.configurations.infra;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

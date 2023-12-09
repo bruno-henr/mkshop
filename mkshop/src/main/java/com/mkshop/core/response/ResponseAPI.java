@@ -1,6 +1,6 @@
-package com.mkshop.mkshop.core.response;
+package com.mkshop.core.response;
 
-import com.mkshop.mkshop.data.model.Category;
+import com.mkshop.mkshop.data.infrastructure.model.Category;
 import org.springframework.http.HttpStatus;
 
 import java.util.List;

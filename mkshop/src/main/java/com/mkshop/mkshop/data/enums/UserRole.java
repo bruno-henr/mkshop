@@ -1,4 +1,4 @@
-package com.mkshop.mkshop.enums;
+package com.mkshop.mkshop.data.enums;
 
 public enum UserRole {
     ADMIN("admin"),

@@ -1,4 +1,4 @@
-package com.mkshop.mkshop.data.model;
+package com.mkshop.mkshop.data.infrastructure.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

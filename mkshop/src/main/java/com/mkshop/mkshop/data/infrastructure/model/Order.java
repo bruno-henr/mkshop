@@ -1,5 +1,6 @@
-package com.mkshop.mkshop.data.model;
+package com.mkshop.mkshop.data.infrastructure.model;
 
+import com.mkshop.mkshop.domain.entities.ProductOrderEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -43,4 +44,21 @@ public class Order {
 
     @OneToMany(mappedBy = "order")
     List<ProductOrder> productOrders;
+
+    public Order(
+            String method_payment,
+            User user,
+            Address address,
+            List<ProductOrder> productOrders
+    ) {
+        this.method_payment = method_payment;
+        this.user = user;
+        if(address != null) {
+            this.address = address;
+        }
+        if(productOrders != null) {
+            this.productOrders = productOrders;
+        }
+
+    }
 }

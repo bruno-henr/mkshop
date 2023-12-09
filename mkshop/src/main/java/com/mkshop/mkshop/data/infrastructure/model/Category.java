@@ -1,6 +1,7 @@
-package com.mkshop.mkshop.data.model;
+package com.mkshop.mkshop.data.infrastructure.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mkshop.mkshop.domain.entities.ProductEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -43,4 +44,9 @@ public class Category implements Serializable {
     @JsonIgnore
     private List<Product> product;
 
+    public Category(String id, String name, List<Product> product) {
+        this.id = id;
+        this.name = name;
+        this.product = product;
+    }
 }

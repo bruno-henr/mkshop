@@ -1,4 +1,4 @@
-package com.mkshop.mkshop.data.infrastructure.controllers.order;
+package com.mkshop.mkshop.data.application.useCases.order;
 
 import com.mkshop.mkshop.data.application.gateways.OrderGateway;
 import com.mkshop.mkshop.domain.entities.OrderEntity;
@@ -12,7 +12,7 @@ public class GetOrderInteractor {
         this.orderGateway = orderGateway;
     }
 
-    public OrderEntity getAllOrders(String id) {
-        return this.orderGateway.getOrderById(id);
+    public List<OrderEntity> getOrderById(String id) {
+        return this.orderGateway.getOrderByUserId(id);
     }
 }

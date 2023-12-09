@@ -1,4 +1,4 @@
-package com.mkshop.mkshop.domain.DTO;
+package com.mkshop.mkshop.data.DTO;
 
 import jakarta.persistence.Column;
 
