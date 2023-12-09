@@ -17,7 +17,7 @@ O MKSHOP é uma aplicação web que oferece aos clientes a facilidade de realiza
 ## Tecnologias Utilizadas
 Frontend
 
-    AngularJS: Framework JavaScript utilizado para construir a interface do cliente.
+    Angular: Framework JavaScript utilizado para construir a interface do cliente.
     PrimeNG: Para o desenvolvimento de um design responsivo e atraente.
 Backend
     
