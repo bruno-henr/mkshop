@@ -19,19 +19,17 @@ export class OrderService {
     return data.map((item: any) => {
       return {
         product: {
-          category: item.category,
-          composition: item.composition,
-          created_at: item.created_at,
-          fabricator: item.fabricator,
-          id: item.id,
-          imageProducts: item.imageProducts,
-          img_url: item.img_url,
-          main: item.main,
           name: item.name,
           price: item.price,
-          // qtd: 2
-          stockQuantity: item.stockQuantity,
-          updated_at: item.updated_at,
+          fabricator: item.fabricator,
+          composition: item.composition,
+          StockQuantity: item.StockQuantity,
+          img_url: item.img_url,
+          main: item.main,
+          categoryId: item.categoryId,
+          imageProducts: item.imageProducts,
+          productOrders: item.productOrders,
+          id: item.id
         },
         qtd: item.qtd,
       };
@@ -39,18 +37,23 @@ export class OrderService {
   }
 
   createOrder(data: any) {
-    data.productsOrder = this.organizeObjectProductOrder(data.productsOrder);
-
+    data.productOrders = this.organizeObjectProductOrder(data.productOrders);
+    
     let user = JSON.parse(localStorage.getItem('user') as string);
     data.user = {
       id: user.id,
-      username: user.username,
-      cpf: user.cpf,
       created_at: user.created_at,
-      full_name: user.full_name,
-      phone_number: user.phone_number,
       updated_at: user.updated_at,
+      full_name: user.full_name,
+      username: user.username,
+      phone_number: user.phone_number,
+      cpf: user.cpf,
+      address: user.address || null,
+      order: user.order || [],
+      role: user.role
+      
     };
+    console.log('dados create ordem ', data)
     return this.http.post(`${this.apiURL}/order`, data, this.httpOptions);
   }
 

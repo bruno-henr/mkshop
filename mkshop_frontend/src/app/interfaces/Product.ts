@@ -1,6 +1,12 @@
 export interface Product {
+  //
+  StockQuantity: number;
+  category?: {
+    id: string;
+    name: string;
+  };
+  categoryId: string;
   composition: string;
-  created_at: number;
   fabricator: string;
   id: string;
   imageProducts: any[];
@@ -8,7 +14,5 @@ export interface Product {
   main: boolean;
   name: string;
   price: number;
-  stockQuantity: number;
-  updated_at: number;
+  productOrders: any[];
 }
-

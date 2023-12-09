@@ -23,7 +23,6 @@ export class ProdutsService {
     this.loadProductsFromLocalStorage();
 
     this.productsCarrinho.subscribe((data: ProdutosCarrinho[]) => {
-      console.log('LISTA crlh ', data);
       this.updateTotal(data);
       this.saveProductsToLocalStorage();
     });
@@ -72,7 +71,6 @@ export class ProdutsService {
         ...this.productsCarrinho.getValue()[index],
         qtd: data.quantity,
       };
-      //this.updateProductsFromLocalStorage(this.products.getValue());
       return this.productsCarrinho.getValue();
     }
     return null;

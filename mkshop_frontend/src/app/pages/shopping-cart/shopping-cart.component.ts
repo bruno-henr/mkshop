@@ -55,7 +55,10 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
 
   handleFinishRequest() {
     let carrinho: any = {
-      productsOrder: this.products.getValue(),
+      productOrders: [...this.products.getValue()].map((p:any) => {
+        delete p.category;
+        return p;
+      }),
       total: this.total,
       method_payment: '',
       user: {},
@@ -69,11 +72,8 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
     } else {
       delete carrinho.address;
     }
-    console.log(carrinho);
     this.orderService.createOrder(carrinho).subscribe(
       (response: any) => {
-        console.log('response order => ', response);
-
         this.messageService.add({
           severity: 'success',
           summary: 'Confirmado',

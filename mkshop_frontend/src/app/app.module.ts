@@ -54,6 +54,7 @@ import { ListaPedidosComponent } from './pages/orders/components/lista-pedidos/l
 import { ListarProdutosPedidoComponent } from './pages/orders/components/listar-produtos-pedido/listar-produtos-pedido.component';
 import { CalcularPedidoPipe } from './pipes/CalcularPedido.pipe';
 import { PerfilComponent } from './pages/perfil/perfil.component';
+import { CadastroUsuarioComponent } from './pages/cadastro-usuario/cadastro-usuario.component';
 
 registerLocaleData(ptBr);
 // **************************************************
@@ -81,7 +82,8 @@ registerLocaleData(ptBr);
     ListaPedidosComponent,
     ListarProdutosPedidoComponent,
     CalcularPedidoPipe,
-    PerfilComponent
+    PerfilComponent,
+    CadastroUsuarioComponent
   ],
   imports: [
     BrowserModule,

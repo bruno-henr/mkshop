@@ -8,6 +8,7 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
 import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
 import { OrdersComponent } from './pages/orders/orders.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
+import { CadastroUsuarioComponent } from './pages/cadastro-usuario/cadastro-usuario.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,9 @@ const routes: Routes = [
   },
   {
     path: 'login', component: LoginComponent
+  },
+  {
+    path: 'registro', component: CadastroUsuarioComponent
   },
 
   { path: "**", redirectTo: "login" }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
+import { Subscription, lastValueFrom } from 'rxjs';
 import { Product } from 'src/app/interfaces/Product';
+import { CategoryService } from 'src/app/services/category/category.service';
 import { ProdutsService } from 'src/app/services/products/produts.service';
 
 interface Option {
@@ -12,7 +14,7 @@ interface Option {
   selector: 'app-offers',
   templateUrl: './offers.component.html',
   styleUrls: ['./offers.component.scss'],
-  providers: [MessageService]
+  providers: [MessageService],
 })
 export class OffersComponent implements OnInit {
   sortOptions!: Option[];
@@ -24,6 +26,7 @@ export class OffersComponent implements OnInit {
 
   constructor(
     private productService: ProdutsService,
+    private categoryService: CategoryService,
     private messageService: MessageService
   ) {}
 
@@ -33,15 +36,23 @@ export class OffersComponent implements OnInit {
       summary: 'Success',
       detail: `${_product.name} adicionado ao carrinho`,
     });
-    
+    console.log(_product);
     this.productService.addProduct(_product);
   }
 
   ngOnInit(): void {
-    this.productService.getProducts().subscribe((response: any) => {
-      console.log('lista de produtos => ', response);
-      this.products = response.data;
+    let produtos: any = [];
+    this.productService.getProducts().subscribe(async (response: any) => {
+      const lista = await Promise.all(response.data.map(async (p: any) => {
+        this.categoryService.getCategoryById(p.categoryId).subscribe((c:any) => {
+          p.category = { id: c.data.id, name: c.data.name };
+        })
+        return p;
+      }));
+      
+      this.products = lista
     });
+
     this.sortOptions = [
       { label: 'Maior preço para o menor', value: '!price' },
       { label: 'Menor preço para o maior', value: 'price' },

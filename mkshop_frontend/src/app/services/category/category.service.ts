@@ -14,11 +14,18 @@ export class CategoryService {
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${this.userService.getTokenJWT()}`,
+      Authorization: `Bearer ${this.userService.getTokenJWT()}`,
     }),
   };
 
   getAllCategories() {
     return this.http.get(this.apiURL + '/category', this.httpOptions);
+  }
+
+  getCategoryById(id: string) {
+    
+    return this.http.get(this.apiURL + `/category/${id}`, {
+      headers: this.httpOptions.headers,
+    });
   }
 }
