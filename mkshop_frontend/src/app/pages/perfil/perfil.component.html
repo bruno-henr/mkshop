@@ -1,8 +1,8 @@
 <div class="w-full flex align-items-center justify-content-center">
   <div class="flex align-items-center justify-content-center flex-column gap-4 mt-8">
     <div class="flex flex-column text-center gap-2">
-        <p-avatar styleClass="mr-2" size="xlarge">{{ userLabel }}</p-avatar>
-        <span>Imagem de perfil</span>
+      <p-avatar styleClass="mr-2" size="xlarge">{{ userLabel }}</p-avatar>
+      <span>Imagem de perfil</span>
     </div>
 
     <div class="flex flex-column gap-2">
@@ -18,6 +18,12 @@
     <div class="flex flex-column gap-2">
       <label htmlFor="phone">Telefone</label>
       <input pInputText id="phone" readonly value="{{user.phone_number}}" />
+    </div>
+
+    <div>
+      <p-toast></p-toast>
+      <p-confirmPopup></p-confirmPopup>
+      <p-button icon="pi pi-sign-out" label="Sair" severity="danger" (click)="confirm($event)"></p-button>
     </div>
   </div>
 </div>
