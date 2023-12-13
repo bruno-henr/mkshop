@@ -33,7 +33,7 @@ Para executar o frontend localmente, siga os passos abaixo:
 
     git clone git@github.com:ifpb-cz-ads/poo-2023-2-ai-bruno-henr.git
 
-    Frontend (AngularJS):
+    Frontend (Angular):
         Navegue até o diretório do frontend, em `mkshop_frontend`
         Instale as dependências com `yarn`.
         Inicie o servidor com `yarn start` ou `ng serve`.
