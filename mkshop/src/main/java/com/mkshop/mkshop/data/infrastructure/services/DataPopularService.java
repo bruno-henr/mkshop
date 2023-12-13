@@ -4,6 +4,7 @@ import com.mkshop.mkshop.data.enums.UserRole;
 import com.mkshop.mkshop.data.infrastructure.model.*;
 import com.mkshop.mkshop.data.infrastructure.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class DataPopularService {
         this.userRepository.save(
                 new User(
                         "Bruno Henrique", "bruno_henrique2",
-                        "123",
+                        new BCryptPasswordEncoder().encode("123"),
                         "(83) 993378760",
                         "90009",
                         null,
