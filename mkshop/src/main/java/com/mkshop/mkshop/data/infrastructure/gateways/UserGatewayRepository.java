@@ -23,6 +23,9 @@ public class UserGatewayRepository implements UserGateway {
     @Override
     public UserEntity createUser(UserEntity user) {
         User userModel = this.userMapper.UserEntityToUserModel(user);
+        userModel.setPassword(
+                new BCryptPasswordEncoder().encode(userModel.getPassword())
+        );
         User userSaved = this.userRepository.save(userModel);
 
         return this.userMapper.UserModelToUserEntity(userSaved);

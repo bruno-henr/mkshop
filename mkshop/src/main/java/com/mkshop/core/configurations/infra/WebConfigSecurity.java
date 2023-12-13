@@ -33,6 +33,7 @@ public class WebConfigSecurity {
                 .requestMatchers("/auth/login").permitAll()
                 .requestMatchers("/auth/validarToken").permitAll()
                 .requestMatchers("/user/register").permitAll()
+                .requestMatchers("/populate-db").permitAll()
                 .anyRequest().permitAll()//.authenticated()
         ).addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
         .build();

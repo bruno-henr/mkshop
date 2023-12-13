@@ -53,6 +53,10 @@ export class ShowMainBransComponent {
 
       this.products = lista;
     });
+    this.sortOptions = [
+      { label: 'Maior preço para o menor', value: '!price' },
+      { label: 'Menor preço para o maior', value: 'price' },
+    ];
   }
 
   layout: 'grid' | 'list' = 'grid';

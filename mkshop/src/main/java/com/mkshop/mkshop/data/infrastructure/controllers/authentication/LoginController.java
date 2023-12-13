@@ -29,13 +29,17 @@ public class LoginController {
     public ResponseEntity<ResponseAPI<String>> login(@RequestBody AuthenticationDTO data) {
 
         try {
-            var usernamePassword = new UsernamePasswordAuthenticationToken(data.username(), data.password());
-            var auth = this.authenticationManager.authenticate(usernamePassword);
+            System.out.println("usuario - "+data.username() +" "+ data.password());
 
-            var token = tokenService.generateToken((User) auth.getPrincipal());
-            System.out.println("token =>"+token);
+            var usernamePassword = new UsernamePasswordAuthenticationToken(data.username(), data.password());
+            System.out.println("usernamePassword "+usernamePassword);
+            var auth = this.authenticationManager.authenticate(usernamePassword);
+//            System.out.println("auth "+auth);
+//
+//            var token = tokenService.generateToken((User) auth.getPrincipal());
+//            System.out.println("token =>"+token);
             return new ResponseEntity<>(
-                    new ResponseAPI<>(token, false, HttpStatus.OK.value(), null),
+                    new ResponseAPI<>(null, false, HttpStatus.OK.value(), null),
                     HttpStatus.OK
             );
         } catch (Exception e) {

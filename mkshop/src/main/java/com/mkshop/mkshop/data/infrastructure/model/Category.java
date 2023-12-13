@@ -45,8 +45,13 @@ public class Category implements Serializable {
     private List<Product> product;
 
     public Category(String id, String name, List<Product> product) {
-        this.id = id;
+        if(id != null) {
+            this.id = id;
+        }
         this.name = name;
-        this.product = product;
+        if(product != null) {
+            this.product = product;
+        }
+
     }
 }
