@@ -82,6 +82,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
         setTimeout(() => {
           this.route.navigate(['/']);
           window.localStorage.removeItem('products');
+          this.products.next([]);
         }, 1000);
       },
       (erro: any) => {
@@ -125,13 +126,10 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
   }
 
   handleSetAddress(address: Address) {
-    console.log('handleSetAddress => ', address);
     if (!this.address) {
-      this.userService.addAddressToUser(address).subscribe((result:any) => {
-        console.log('result => ', result.data);
-        console.log('address => ', result.data.address);
+      this.userService.addAddressToUser(address).subscribe((result: any) => {
         this.address = result.data.address;
-      })
+      });
       //this.getAddressToUser();
     }
     this.showDialogAddAddress = false;

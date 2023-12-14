@@ -53,7 +53,7 @@
           [modal]="true" [style]="{ width: '70vw' }" 
           [draggable]="false" [resizable]="false"
         >
-          <div *ngIf="showDialogAddAddress">
+          <div *ngIf="!address?.id">
             <app-add-address (addressEvent)="handleSetAddress($event)"></app-add-address>
           </div>
           <div *ngIf="address">
