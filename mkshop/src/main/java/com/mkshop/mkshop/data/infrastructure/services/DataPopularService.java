@@ -29,7 +29,7 @@ public class DataPopularService {
     public void populateDatabaseWithSampleData() {
         this.userRepository.save(
                 new User(
-                        "Bruno Henrique", "bruno_henrique2",
+                        "Bruno Henrique", "bruno_henr",
                         new BCryptPasswordEncoder().encode("123"),
                         "(83) 993378760",
                         "90009",
@@ -50,7 +50,9 @@ public class DataPopularService {
                                 new Category(null,"Bebidas alcoólicas", null),
                                 new Category(null,"Salgados", null),
                                 new Category(null,"Farofas", null),
-                                new Category(null,"Massas", null)
+                                new Category(null,"Massas", null),
+                                new Category(null,"Suplementos", null),
+                                new Category(null,"Maionese", null)
                         )
                 )
         );
@@ -58,6 +60,17 @@ public class DataPopularService {
         this.productRepository.saveAll(
                 new ArrayList<>(
                         List.of(
+                                new Product(
+                                        "Pré-Treino Crack 300g",
+                                        109.00,
+                                        "Demons Lab",
+                                        null,
+                                        100,
+                                        "main-products/pre-treino.png",
+                                        true, this.categoryRepository.findByName("Suplementos"),
+                                        null,
+                                        null, null),
+
                                 new Product(
                                         "Doritos 300g",
                                         17.50,
@@ -97,7 +110,7 @@ public class DataPopularService {
                                         "Yoki",
                                         null, 100,
                                         "main-products/farinha-yoki.png",
-                                        true, this.categoryRepository.findByName("Farofas"),
+                                        false, this.categoryRepository.findByName("Farofas"),
                                         null,
                                         null, null),
                                 new Product(
@@ -106,7 +119,7 @@ public class DataPopularService {
                                         "Barilla",
                                         null, 100,
                                         "main-products/macarrao.png",
-                                        true, this.categoryRepository.findByName("Massas"),
+                                        false, this.categoryRepository.findByName("Massas"),
                                         null,
                                         null, null),
                                 new Product(
@@ -115,7 +128,63 @@ public class DataPopularService {
                                         "Yoki",
                                         null, 100,
                                         "main-products/pipoca.png",
-                                        true, this.categoryRepository.findByName("Salgados"),
+                                        false, this.categoryRepository.findByName("Salgados"),
+                                        null,
+                                        null, null),
+
+                                new Product(
+                                        "Pringles Creme & Cebola 109g",
+                                        10.19,
+                                        "Pringles",
+                                        null, 100,
+                                        "main-products/pringles-cebola.png",
+                                        false, this.categoryRepository.findByName("Salgados"),
+                                        null,
+                                        null, null),
+                                new Product(
+                                        "Dr Peanut - Pasta de Amendoim 600g",
+                                        49.99,
+                                        "Dr Peanut",
+                                        null, 100,
+                                        "main-products/dr-peanut-pasta.png",
+                                        false, this.categoryRepository.findByName("Suplementos"),
+                                        null,
+                                        null, null),
+                                new Product(
+                                        "Pringles Original 104g",
+                                        10.19,
+                                        "Pringles",
+                                        null, 100,
+                                        "main-products/pringles-original.png",
+                                        false, this.categoryRepository.findByName("Salgados"),
+                                        null,
+                                        null, null),
+                                new Product(
+                                        "Vinho Chileno Branco 750ml",
+                                        22.79,
+                                        "Chilano",
+                                        null, 100,
+                                        "main-products/vinho-chileno.png",
+                                        false, this.categoryRepository.findByName("Bebidas alcoólicas"),
+                                        null,
+                                        null, null),
+                                new Product(
+                                        "Heinz - Maionese, 390G",
+                                        13.99,
+                                        "Heinz",
+                                        null, 100,
+                                        "main-products/maionese-heinz.png",
+                                        false, this.categoryRepository.findByName("Maionese"),
+                                        null,
+                                        null, null),
+
+                                new Product(
+                                        "3 Corações Café Torrado",
+                                        15.79,
+                                        "3 Corações",
+                                        null, 100,
+                                        "main-products/cafe-3-coracoes.png",
+                                        false, this.categoryRepository.findByName("Cafés & Chás"),
                                         null,
                                         null, null)
                         )
