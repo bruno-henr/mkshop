@@ -16,8 +16,6 @@ export class ProdutsService {
   total!: number;
 
   productsCarrinho!: BehaviorSubject<ProdutosCarrinho[]>;
-  productsCarrinhoObservable$!: any;
-  products!: any[];
 
   constructor(private http: HttpClient, private userService: UserService) {
     this.loadProductsFromLocalStorage();
@@ -78,8 +76,6 @@ export class ProdutsService {
 
   updateProductsFromLocalStorage(productsList: ProdutosCarrinho[]) {
     this.productsCarrinho.next(productsList);
-    //this.updateTotal();
-    //this.saveProductsToLocalStorage();
   }
 
   updateTotal(data?: ProdutosCarrinho[]) {
@@ -108,7 +104,6 @@ export class ProdutsService {
     } else {
       this.productsCarrinho = new BehaviorSubject<ProdutosCarrinho[]>([]);
     }
-    // this.productsCarrinhoObservable$ = this.productsCarrinho.asObservable();
     this.updateTotal();
   }
 
@@ -122,8 +117,6 @@ export class ProdutsService {
       carrinho.push({ ...product, qtd: qtd || 1 });
     }
     this.productsCarrinho.next(carrinho);
-
-    //this.updateTotal();
   }
 
   saveProductsToLocalStorage(): void {
