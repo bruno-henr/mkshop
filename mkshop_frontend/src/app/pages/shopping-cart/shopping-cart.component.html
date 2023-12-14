@@ -2,7 +2,8 @@
   <p-breadcrumb class="max-w-full breadcrumb-container text-sm" [model]="items" [home]="home"></p-breadcrumb>
 </div>
 
-<div class="w-full flex xl:flex-row lg:flex-column md:flex-column sm:flex-column h-full ">
+<div *ngIf="products.getValue().length"
+  class="w-full flex xl:flex-row lg:flex-column md:flex-column sm:flex-column h-full ">
   <div class="xl:col-6 lg:flex-row md:col-12 flex-column ">
     <h3>Carrinho ({{ products.getValue().length }})</h3>
     <div *ngFor="let product of products.getValue()" class="flex flex-column gap-2">
@@ -47,9 +48,11 @@
         </a>
 
 
-        <p-dialog header="Endereço" [(visible)]="visible" [modal]="true" [style]="{ width: '70vw' }" [draggable]="false"
-          [resizable]="false">
-
+        <p-dialog 
+          header="Endereço" [(visible)]="visible" 
+          [modal]="true" [style]="{ width: '70vw' }" 
+          [draggable]="false" [resizable]="false"
+        >
           <div *ngIf="showDialogAddAddress">
             <app-add-address (addressEvent)="handleSetAddress($event)"></app-add-address>
           </div>
@@ -69,4 +72,11 @@
     </div>
 
   </div>
+</div>
+
+<div 
+  *ngIf="!products.getValue().length"
+  class="flex align-items-center justify-content-center h-19rem"
+>
+  <span>Não há produtos no carrinho.</span>
 </div>

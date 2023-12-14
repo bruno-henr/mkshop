@@ -49,7 +49,24 @@ export class UserService {
   }
 
   addAddressToUser(address: Address) {
-    throw new Error('Method not implemented.');
+    let user = this.getUser();
+    
+    let result = this.http.put(
+      `${this.apiURL}/user/${user.id}`,
+      {
+        full_name: user.full_name,
+        username: user.username,
+        password: null,
+        phone_number: user.phone_number,
+        cpf: user.cpf,
+        address: address,
+        order: null,
+        role: user.role,
+        id: user.id,
+      }
+    );
+
+    return result;
   }
 
   public getUserIfLogged(): Observable<boolean> {

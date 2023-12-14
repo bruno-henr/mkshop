@@ -1,3 +1,6 @@
-<div>
+<div *ngIf="orderUser.length">
     <app-lista-pedidos [orders]="orderUser"></app-lista-pedidos>
+</div>
+<div *ngIf="!orderUser.length" class="flex h-19rem align-items-center justify-content-center">
+    <span>Não há pedidos do usuário.</span>
 </div>

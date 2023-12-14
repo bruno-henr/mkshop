@@ -55,7 +55,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
 
   handleFinishRequest() {
     let carrinho: any = {
-      productOrders: [...this.products.getValue()].map((p:any) => {
+      productOrders: [...this.products.getValue()].map((p: any) => {
         delete p.category;
         return p;
       }),
@@ -81,7 +81,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
         });
         setTimeout(() => {
           this.route.navigate(['/']);
-          window.localStorage.removeItem('products')
+          window.localStorage.removeItem('products');
         }, 1000);
       },
       (erro: any) => {
@@ -127,8 +127,12 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
   handleSetAddress(address: Address) {
     console.log('handleSetAddress => ', address);
     if (!this.address) {
-      this.userService.addAddressToUser(address);
-      this.getAddressToUser();
+      this.userService.addAddressToUser(address).subscribe((result:any) => {
+        console.log('result => ', result.data);
+        console.log('address => ', result.data.address);
+        this.address = result.data.address;
+      })
+      //this.getAddressToUser();
     }
     this.showDialogAddAddress = false;
     this.visible = false;
