@@ -17,7 +17,6 @@ export class CategoryGalleryComponent implements OnInit {
 
   ngOnInit() {
     this.categoryService.getAllCategories().subscribe((response: any) => {
-      console.log('categorias ===',response);
       this.categories = response.data
     })
 

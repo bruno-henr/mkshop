@@ -18,7 +18,6 @@ export class OrdersComponent implements OnInit {
 
   ngOnInit(): void {
     this.orderService.getOrderByUser().subscribe(async (response: any) => {
-      console.log('pedidos do cliente ', response.data);
       const lista = await Promise.all(
         response.data.map(async (p: any) => {
           p.productOrders.map((po: any) => {

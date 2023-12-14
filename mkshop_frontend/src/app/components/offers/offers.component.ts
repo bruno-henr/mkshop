@@ -36,7 +36,6 @@ export class OffersComponent implements OnInit {
       summary: 'Success',
       detail: `${_product.name} adicionado ao carrinho`,
     });
-    console.log(_product);
     this.productService.addProduct(_product);
   }
 

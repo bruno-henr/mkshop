@@ -53,7 +53,6 @@ export class OrderService {
       role: user.role
       
     };
-    console.log('dados create ordem ', data)
     return this.http.post(`${this.apiURL}/order`, data, this.httpOptions);
   }
 

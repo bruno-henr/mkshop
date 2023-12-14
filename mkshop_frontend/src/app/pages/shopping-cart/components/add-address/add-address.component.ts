@@ -16,7 +16,6 @@ export class AddAddressComponent implements OnInit {
 
   onSubmit() {
     if (this.formGroup.valid) {
-      console.log('essa ', this.formGroup.value);
       this.addressEvent.emit(this.formGroup.value);
     }
   }

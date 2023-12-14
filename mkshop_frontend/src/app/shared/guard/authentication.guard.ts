@@ -22,7 +22,6 @@ export const authenticationGuard: CanActivateFn = async (route, state) => {
     })
     return true
   }).catch(e => {
-    console.log('essa piriquita ', e);
     router.navigate(['login'])
     return false;
   })

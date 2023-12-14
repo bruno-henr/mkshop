@@ -27,7 +27,6 @@ export class UserService {
   };
 
   getTokenJWT(): string {
-    console.log('TOKEN ', this.token_jwt);
     return this.token_jwt;
   }
 

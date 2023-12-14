@@ -10,6 +10,5 @@ export class ListaPedidosComponent implements OnInit {
   @Input() orders!: any[];
 
   ngOnInit(): void {
-    console.log('orders => ', this.orders);
   }
 }

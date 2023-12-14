@@ -20,9 +20,7 @@ export class InputSearchComponent implements OnInit {
   products: any[] | undefined;
 
   search(event: AutoCompleteCompleteEvent) {
-    console.log(event.query);
     this.productService.getProducts(event.query).subscribe((response: any) => {
-      console.log('response product => ', response);
       this.filteredProducts = response.data;
     });
   }

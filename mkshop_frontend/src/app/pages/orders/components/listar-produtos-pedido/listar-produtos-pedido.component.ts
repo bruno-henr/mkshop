@@ -10,6 +10,5 @@ export class ListarProdutosPedidoComponent implements OnInit {
   @Input() products!: any[]; 
   layout: 'grid' | 'list' = 'grid';
   ngOnInit(): void {
-    console.log('lista de produtos PORRA', this.products);
   }
 }

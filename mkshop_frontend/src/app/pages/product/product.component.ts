@@ -47,9 +47,7 @@ export class ProductComponent implements OnInit {
   home: MenuItem | undefined;
 
   getProductByName(name: string) {
-    console.log('parametro ', name);
     this.productService.getProducts(name).subscribe((response: any) => {
-      console.log(response.data);
       this.product = response.data[0];
     });
   }
