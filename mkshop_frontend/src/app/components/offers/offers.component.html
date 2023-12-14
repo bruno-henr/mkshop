@@ -23,13 +23,11 @@
             <div class="flex flex-column align-items-center sm:align-items-start gap-3">
               <div class="text-2xl font-bold text-900">{{ product.name }}</div>
 
-              <!-- <p-rating (ngModel)="product.rating" [readonly]="true" [cancel]="false"></p-rating> -->
               <div class="flex align-items-center gap-3">
                 <span class="flex align-items-center gap-2">
                   <i class="pi pi-tag"></i>
                   <!-- <span class="font-semibold">{{ product['category'].name }} </span> -->
                 </span>
-                <!-- <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product)"></p-tag> -->
               </div>
             </div>
             <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
@@ -44,24 +42,29 @@
     </ng-template>
     <ng-template let-product pTemplate="gridItem">
       <div class="col-12  sm:col-6 lg:col-12 xl:col-4 p-2">
-        <div class="p-4 h-full border-1 surface-border surface-card border-round">
+        <div class="relative p-4 h-29rem border-1 surface-border surface-card border-round">
           <div class="flex flex-wrap align-items-center justify-content-between gap-2">
             <span class="flex align-items-center gap-2">
               <i class="pi pi-tag"></i>
               <span class="font-semibold">{{ product.category.name }}</span>
             </span>
-            <!-- <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product)"></p-tag> -->
           </div>
-          <div class="flex flex-column align-items-center gap-3 py-5">
+
+          <div 
+            id="card-img-product" class="flex flex-column h-19rem align-items-center justify-content-center gap-3 py-2"
+          >
             <img class="w-9  border-round" [src]="'assets/' + product.img_url" [alt]="product.name" />
-            <div class="text-2xl font-bold">{{ product.name }}</div>
-            <!-- <p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating> -->
           </div>
-          <div class="flex align-items-center justify-content-between">
-            <span class="text-2xl font-semibold">{{ product.price | currency : 'BRL' }}</span>
-            <p-toast></p-toast>
-            <button pButton icon="pi pi-shopping-cart" class="p-button-rounded" (click)="addShoppingCard(product)"
+
+          <div id="card-footer" class="flex flex-column">
+            <div class="text-2xl font-bold">{{ product.name }}</div>
+            
+            <div class="flex align-items-center justify-content-between">
+              <span class="text-2xl font-semibold">{{ product.price | currency : 'BRL' }}</span>
+              <p-toast></p-toast>
+              <button pButton icon="pi pi-shopping-cart" class="p-button-rounded" (click)="addShoppingCard(product)"
               [disabled]="product.inventoryStatus === 'OUTOFSTOCK'"></button>
+            </div>
           </div>
         </div>
       </div>
