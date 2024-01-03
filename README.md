@@ -2,6 +2,9 @@
 
 Este é o projeto MKSHOP, desenvolvido para permitir que os clientes realizem compras online no supermercado.
 
+Obs.: Como meu repositorio na instituição não disponibilizava para fork, clonei e disponibilizei aqui no meu perfil pessoal.
+Link do repostório original na instituição: https://github.com/ifpb-cz-ads/poo-2023-2-ai-bruno-henr
+
 ## Visão Geral
 
 O MKSHOP é uma aplicação web que oferece aos clientes a facilidade de realizar compras de supermercado online. Nesta fase inicial do projeto, o foco é proporcionar uma experiência amigável e intuitiva para os usuários realizarem suas compras pela plataforma web. O backend oferece uma API segura com spring boot.
