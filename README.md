@@ -3,7 +3,7 @@
 Este é o projeto MKSHOP, desenvolvido para permitir que os clientes realizem compras online no supermercado.
 
 Obs.: Como meu repositorio na instituição não disponibilizava para fork, clonei e disponibilizei aqui no meu perfil pessoal.
-Link do repostório original na instituição: https://github.com/ifpb-cz-ads/poo-2023-2-ai-bruno-henr
+Link do repositório original na instituição: https://github.com/ifpb-cz-ads/poo-2023-2-ai-bruno-henr
 
 ## Visão Geral
 
